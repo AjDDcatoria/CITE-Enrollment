@@ -1,0 +1,281 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --text: #0e0e0c;
+  --background-light: #f9f9f6;
+}
+
+* {
+  background-color: var(--background-light);
+  color: var(--text);
+  margin: 0px;
+  padding: 0px;
+  box-sizing: 0px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  user-select: none;
+}
+
+img.hero {
+  height: 500px;
+}
+
+body {
+  height: 100vh;
+}
+
+div#root {
+  overflow: hidden;
+}
+
+.box1 {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+.box2 {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.box3 {
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+
+.text_input {
+  border-radius: 5px;
+  font-size: 18px;
+  height: 45px;
+  border: 2px solid var(--text);
+  outline: none;
+}
+
+.error-aught-email {
+  top: 44px;
+}
+
+.error-augth-pass {
+  top: 108px;
+}
+
+.modal-container {
+  height: 100vh;
+}
+
+.modal-container .modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.522);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 0px 0px 20px 0px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  max-width: 80%;
+  max-height: 85%;
+  overflow: auto;
+  text-align: left;
+}
+
+.modal-container {
+  border-bottom: 1px solid #ccc;
+}
+
+.fi-sr-angle-small-right {
+  top: 18px;
+  right: -24px;
+  color: #1f1f1f;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  rotate: 180deg;
+  transition: all 0.5s ease;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.sidebar {
+  transition: all 0.5s ease;
+  text-overflow: initial;
+  white-space: nowrap;
+  top: 54px;
+}
+
+span.openSidebar {
+  opacity: 0;
+}
+
+i.openSidebar {
+  rotate: 360deg;
+}
+
+div.sidebar div.pb-3 {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.309);
+}
+
+span.name {
+  transition: all 0.3s ease;
+}
+
+div.openSidebar {
+  width: 80px !important;
+}
+
+.logout-btn {
+  bottom: 70px;
+  z-index: 3;
+  left: 10px;
+  max-width: 270px;
+  width: 100%;
+  transition: all 0.4s ease-out;
+}
+
+button.openSidebar {
+  width: 55px !important;
+}
+
+button.openSidebar span {
+  opacity: 0;
+  transition: all 0.5s ease;
+  display: none;
+}
+
+i {
+  background-color: transparent;
+  font-size: 27px;
+  font-weight: 800;
+  color: white;
+}
+
+.logout-btn,
+li.overflow-hidden {
+  transition: all 0.5s ease;
+}
+
+.logout-btn:hover,
+li.overflow-hidden:hover {
+  background-color: white;
+}
+
+.logout-btn:hover > i,
+.logout-btn:hover > span,
+li.overflow-hidden:hover > i,
+li.overflow-hidden:hover > span {
+  color: black !important;
+}
+
+section.content-section {
+  margin: 56px 0px 0px 100px;
+  transition: all 0.7s ease;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section.openSidebar {
+  margin-left: 310px !important;
+}
+
+a {
+  background-color: transparent;
+}
+
+.searchBar-width1 {
+  width: 530px !important;
+}
+
+.form-search {
+  width: 700px !important;
+  padding-left: 70px;
+}
+
+img.subject-profile {
+  left: 85px;
+  top: 85px;
+}
+
+.background-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.423);
+  transition: all 0.3s ease-in-out;
+}
+
+.background-container:hover::after {
+  background-color: rgba(0, 0, 0, 0.076);
+}
+
+div.content {
+  line-height: 0px;
+}
+
+.subject-cards {
+  transition: all 0.5s ease-in-out;
+}
+
+div.list-subjects {
+  justify-content: center;
+  padding-bottom: 20px;
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 256px);
+  grid-template-columns: repeat(auto-fit, minmax(256px, 256px));
+}
+
+.Toast:hover {
+  background-color: #f0efefe1;
+  color: #0e0e0c !important;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+
+.Toast:hover div {
+  color: black !important;
+}
+
+table {
+  max-width: 900px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  /* overflow: hidden; */
+}
+
+table thead :not(:last-child) {
+  text-align: left;
+}
+
+table thead :first-child {
+  text-align: center;
+}
+
+table tr {
+  transition: all 0.2s ease-in-out;
+}
+
+button {
+  transition: all 0.2s ease-in-out;
+}

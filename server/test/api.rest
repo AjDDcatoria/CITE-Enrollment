@@ -1,0 +1,27 @@
+# * ============ AUTHENTICATION API  =============
+# * Login
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+    "email":"aj@gmail.com", 
+    "password":"aj123"
+}
+
+###
+# * Logout
+PATCH  http://localhost:3001/api/auth/logout
+
+###
+# *================ CHAIR API ===================
+POST http://localhost:3001/api/chair/accept-accounts
+Content-Type: application/json
+
+{
+    "id":1
+}
+
+###
+
+GET http://localhost:3001/api/chair/get-request-accounts
+Content-Type: application/json
