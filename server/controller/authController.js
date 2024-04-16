@@ -10,20 +10,19 @@ class AuthController {
   }
 
   login = asyncHandler(async (req, res) => {
-    if (req.session.currentUser) {
-      throw new CustomError(`This device has already Login`, STATUS.FORBIDDEN);
-    }
+    // if (req.session.currentUser) {
+    //   throw new CustomError(`This device has already Login`, STATUS.FORBIDDEN);
+    // }
 
     const userResult = await this.auth.login(req.body);
     const access_token = token.getToken(userResult);
 
-    res.cookie("access_token", access_token, {
-      httpOnly: false,
-    });
-
     req.session.currentUser = userResult;
     const { userID, email, ...other } = userResult;
-    res.status(STATUS.OK).json(other);
+    res.status(STATUS.OK).json({
+      user: { ...other },
+      accessToken: access_token,
+    });
   });
 
   logout = asyncHandler(async (req, res) => {

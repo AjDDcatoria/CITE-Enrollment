@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         element: <TodoList />,
       },
       {
-        path: "/message",
+        path: "/message/:id",
         element: <Message />,
       },
       {
@@ -42,23 +42,23 @@ const router = createBrowserRouter([
         element: <Enroll />,
       },
       {
-        path: "/settings",
+        path: "/settings/:id",
         element: <Settings />,
       },
       {
-        path: "/admin",
+        path: "/chair/:id",
         element: <DashBoard />,
       },
       {
-        path: "/admin/request-accounts",
+        path: "/chair/request-accounts/:id",
         element: <RequestAcc />,
       },
       {
-        path: "/admin/add-subjects",
+        path: "/chair/add-subjects/:id",
         element: <AddSubjects />,
       },
       {
-        path: "/instructor",
+        path: "/instructor/:id",
         element: <Room />,
       },
     ],

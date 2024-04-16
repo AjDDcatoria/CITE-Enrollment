@@ -15,18 +15,12 @@ import {
 import Navigation, { NavList } from "@/components/ui/Navigation";
 import { SideBarContext } from "@/context/sideBarContext";
 import NavigationUSER from "@/utils/User";
+import { useSelector } from "react-redux";
 
 function UserPanel() {
   const { setSideBarInfo } = useContext(SideBarContext);
-  const user = {
-    firstname: "Lea Mae",
-    lastname: "Rebuyon",
-    profile: tempProfile,
-    role: "admin",
-    college: "CITE",
-  };
-  const navUser = NavigationUSER(user);
-
+  const userData = useSelector((state) => state.auth?.userData);
+  const navUser = NavigationUSER(userData);
   const isSideBarOpen = (sidebarInfo) => {
     setSideBarInfo(sidebarInfo);
   };
@@ -34,13 +28,13 @@ function UserPanel() {
     <>
       <Header variant={"space_between"} className={"top-0"}>
         <span className="appTitle bg-transparent text-slate-100 text-2xl">
-          {user.college}
+          {userData.department}
         </span>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
               <Avatar
-                img={tempProfile}
+                img={userData.profile ? userData : tempProfile}
                 variant={"small"}
                 className={"rounded-full"}
               />
@@ -54,7 +48,7 @@ function UserPanel() {
       <div>
         <SideBar
           sideBarOpen={isSideBarOpen}
-          currentUser={user}
+          currentUser={userData}
           variant={"slide_left"}
           className={"bg-gray-950 w-72"}
         >

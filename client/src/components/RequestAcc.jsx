@@ -11,6 +11,7 @@ import Table, {
 import Button from "./ui/Button";
 import { Toaster } from "./ui/toaster";
 import { toast } from "./ui/use-toast";
+
 function RequestAcc() {
   const { sideBarInfo } = useContext(SideBarContext);
   const [tableHeaders, setTableHeaders] = useState(null);
@@ -47,7 +48,7 @@ function RequestAcc() {
     account.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
   useEffect(() => {
-    setTableHeaders(createTableHeaders("admin"));
+    setTableHeaders(createTableHeaders("chair"));
   }, []);
   return (
     <>

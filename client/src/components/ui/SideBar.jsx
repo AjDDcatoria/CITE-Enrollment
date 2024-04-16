@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "./Avatar";
 import Button from "./Button";
+import tempProfile from "../../assets/tempProfile.jpg";
 
 const sideBarVariant = (variant) => {
   const variants = {
@@ -37,7 +38,7 @@ function SideBar({ children, currentUser, variant, className, sideBarOpen }) {
         <div className="bg-transparent relative pb-3">
           <div className="bg-transparent flex gap-5">
             <Avatar
-              img={currentUser.profile}
+              img={currentUser.profile ? currentUser.profile : tempProfile}
               variant={"medium"}
               className={"rounded-lg"}
             />
@@ -65,7 +66,6 @@ function SideBar({ children, currentUser, variant, className, sideBarOpen }) {
             text={"Logout"}
             variant={"logout"}
             className={`${sidebar} absolute logout-btn`}
-            // icon={<i class="fi fi-sr-exit"></i>}
             icon={<i className="bx bx-log-out bx-flip-horizontal"></i>}
           />
         </div>

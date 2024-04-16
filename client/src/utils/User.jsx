@@ -1,13 +1,13 @@
 export const ROLE = {
   STUDENT: "student",
-  ADMIN: "admin",
+  CHAIR: "chair",
   INSTRUCTOR: "instructor",
 };
 
 export const createTableHeaders = (role) => {
   const tableHeader = [];
   switch (role) {
-    case ROLE.ADMIN:
+    case ROLE.CHAIR:
       tableHeader.push(
         "No.",
         "Fullname",
@@ -56,25 +56,20 @@ const NavigationUSER = (user) => {
       );
       break;
 
-    case ROLE.ADMIN:
+    case ROLE.CHAIR:
       nav.push(
         {
-          to: "/admin",
+          to: `/chair/${user.id}`,
           text: "DashBoard",
           icon: <i className="fi fi-sr-chart-simple"></i>,
         },
         {
-          to: "/message",
-          text: "Message",
-          icon: <i className="pt-2 fi fi-sr-comment-alt"></i>,
-        },
-        {
-          to: "/admin/add-subjects",
+          to: `/chair/add-subjects/${user.id}`,
           text: "Add Subjects",
           icon: <i className="fi fi-sr-book-open-cover"></i>,
         },
         {
-          to: "/admin/request-accounts",
+          to: `/chair/request-accounts/${user.id}`,
           text: "Request Accounts",
           icon: <i className="fi fi-sr-user-check"></i>,
         }
@@ -82,17 +77,17 @@ const NavigationUSER = (user) => {
     case ROLE.INSTRUCTOR:
       nav.push(
         {
-          to: "/instructor",
+          to: `/instructor/${user.id}`,
           text: "Room",
           icon: <i className="pt-2 fi fi-sr-book-open-cover"></i>,
         },
         {
-          to: "/message",
+          to: `/message/${user.id}`,
           text: "Message",
           icon: <i className="pt-2 fi fi-sr-comment-alt"></i>,
         },
         {
-          to: "/settings",
+          to: `/settings/${user.id}`,
           text: "Settings",
           icon: <i className="pt-2 fi fi-sr-settings"></i>,
         }

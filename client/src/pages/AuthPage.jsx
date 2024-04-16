@@ -1,12 +1,14 @@
-"user client";
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HERO from "../assets/classroom.png";
 import Card from "../components/ui/Cards";
 import { useForm } from "react-hook-form";
 import Error from "../components/ui/Error";
 import Button from "../components/ui/Button";
 import Modal, { ModalHeader } from "../components/ui/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { LoginAction } from "@/redux/action/authAction";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 function AuthPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,15 +32,43 @@ function AuthPage() {
 }
 
 function Login({ setIsModalOpen }) {
-  const [isError, setIsError] = useState("!Email not found");
+  const formData = new FormData();
+  const [emailError, setEmailError] = useState(null);
+  const [passError, setPassError] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+
+  const mutate = useMutation({
+    mutationFn: async (formData) => dispatch(LoginAction(formData, navigate)),
+  });
+
+  const onSubmit = async (data) => {
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    mutate.mutateAsync(formData, navigate);
   };
+  const loginError = useSelector((state) => state.auth?.loginError);
+
+  useEffect(() => {
+    if (loginError) {
+      if (loginError.statusCode === 404) {
+        setEmailError(loginError.message);
+      }
+      if (loginError.statusCode === 401) {
+        setPassError(loginError.message);
+      }
+
+      setTimeout(() => {
+        setEmailError(null);
+        setPassError(null);
+      }, 5000);
+    }
+  }, [loginError]);
 
   return (
     <>
@@ -48,17 +78,12 @@ function Login({ setIsModalOpen }) {
         }
         variant={"box3"}
       >
-        <span className="bg-transparent text-4xl font-bold">Login</span>
-        <Error
-          variant={"error_card"}
-          className={"invisible"}
-          message={isError}
-        />
+        <span className="bg-transparent text-4xl font-bold pb-10">Login</span>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-5 relative bg-transparent"
         >
-          <i className="fi fi-sr-envelope absolute bg-transparent top-2 left-4 text-xl text-slate-900"></i>
+          <i className="fi fi-sr-envelope absolute bg-transparent top-3 left-4 text-xl text-slate-900"></i>
           <input
             {...register("email", {
               required: "Input Email",
@@ -70,12 +95,20 @@ function Login({ setIsModalOpen }) {
             placeholder="Email"
             className="text_input w-72 bg-transparent pl-12"
           />
-          {errors.email && (
+          {errors.email ? (
             <Error
               message={errors.email.message}
               className={"absolute error-aught-email bg-transparent"}
               variant={"error_text"}
             />
+          ) : (
+            emailError && (
+              <Error
+                message={emailError}
+                className={"absolute error-aught-email bg-transparent"}
+                variant={"error_text"}
+              />
+            )
           )}
           <i
             className="fi fi-sr-lock absolute bg-transparent left-4 text-slate-900"
@@ -89,9 +122,15 @@ function Login({ setIsModalOpen }) {
             type="password"
             className="text_input bg-transparent pl-12"
           />
-          {errors.password && (
+          {errors.password ? (
             <Error
               message={errors.password.message}
+              className={"absolute error-augth-pass bg-transparent"}
+              variant={"error_text"}
+            />
+          ) : (
+            <Error
+              message={passError}
               className={"absolute error-augth-pass bg-transparent"}
               variant={"error_text"}
             />
