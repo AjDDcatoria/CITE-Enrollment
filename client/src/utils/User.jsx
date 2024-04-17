@@ -29,27 +29,27 @@ const NavigationUSER = (user) => {
     case ROLE.STUDENT:
       nav.push(
         {
-          to: "/student",
+          to: `/student/${user.id}`,
           text: "Room",
           icon: <i className="pt-2 fi fi-sr-book-open-cover"></i>,
         },
         {
-          to: "/student/todo-list/1", // ! temp id = 1
+          to: `/student/todo-list/${user.id}`, // ! temp id = 1
           text: "Todo-List",
           icon: <i className="pt-2 fi fi-sr-journal"></i>,
         },
         {
-          to: "/message",
+          to: `/message/${user.id}`,
           text: "Message",
           icon: <i className="pt-2 fi fi-sr-comment-alt"></i>,
         },
         {
-          to: "/student/enroll",
+          to: `/student/enroll/${user.id}`,
           text: "Enroll",
           icon: <i className="pt-2 fi fi-sr-graduation-cap"></i>,
         },
         {
-          to: "/settings",
+          to: `/settings/${user.id}`,
           text: "Settings",
           icon: <i className="pt-2 fi fi-sr-settings"></i>,
         }
