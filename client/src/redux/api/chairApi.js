@@ -1,4 +1,5 @@
 import { axiosInstance as api } from "./axiosInstance";
+import { handleApiError } from "./utils";
 
 export const getRequest = async () => {
   api.defaults.withCredentials = true;
@@ -9,9 +10,20 @@ export const getRequest = async () => {
       data: response.data,
     };
   } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const declineRequest = async (formData) => {
+  try {
+    const response = await api.post("/api/chair/reject-accounts", {
+      userID: formData.get("userID"),
+    });
     return {
-      error: error.response.data,
-      data: null,
+      error: null,
+      data: response.data,
     };
+  } catch (error) {
+    return handleApiError(error);
   }
 };

@@ -1,8 +1,10 @@
-import * as types from "../constants/chair";
+import * as types from "../constants/chairConstants";
 
 const initialState = {
   req_accounts: null,
   req_error: null,
+  req_error_message: null,
+  declineSucessFul: null,
 };
 
 const chairReducer = (state = initialState, action) => {
@@ -15,10 +17,24 @@ const chairReducer = (state = initialState, action) => {
       };
     }
 
-    case types.REQ_ERROR: {
+    case types.REQUEST_ERROR: {
       return {
         ...state,
         req_error: payload ? payload : null,
+      };
+    }
+
+    case types.REQUEST_FAIL: {
+      return {
+        ...state,
+        req_error_message: payload ? payload : null,
+      };
+    }
+
+    case types.DECLINE_SUCCESS: {
+      return {
+        ...state,
+        declineSucessFul: payload ? payload : null,
       };
     }
 

@@ -10,7 +10,7 @@ const chairAsInstructor = new ChairAsInstructor();
 
 router.get("/get-request-accounts", chair.getAllrequest);
 router.post("/accept-accounts", chair.acceptAccount);
-router.delete("/reject-accounts", chair.rejectAccount);
+router.post("/reject-accounts", chair.rejectAccount);
 router.post("/create-subject", chair.createSubject);
 
 // ! chair as Instructor Routes

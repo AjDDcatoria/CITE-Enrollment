@@ -12,25 +12,41 @@ import Button from "./ui/Button";
 import { Toaster } from "./ui/toaster";
 import { toast } from "./ui/use-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { GETRequestAction } from "@/redux/action/chairAction";
+import { DeclineRequest, GETRequestAction } from "@/redux/action/chairAction";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 function RequestAcc() {
   const { sideBarInfo } = useContext(SideBarContext);
   const [tableHeaders, setTableHeaders] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const dispatch = useDispatch();
   const [accounst, setAccounts] = useState([]);
-  useEffect(() => {
-    dispatch(GETRequestAction());
-  }, [dispatch]);
-
   const reqAccounts = useSelector((state) => state.chair?.req_accounts);
+  const dispatch = useDispatch();
+  const formData = new FormData();
+
+  const mutate = useMutation({
+    mutationFn: async (formData) => dispatch(DeclineRequest(formData)),
+    onMutate: () => {
+      console.log("Loading");
+    },
+  });
+
+  const declineSuccess = useSelector((state) => state.chair?.declineSucessFul);
 
   useEffect(() => {
     if (reqAccounts) {
       setAccounts(reqAccounts);
     }
+    if (declineSuccess) {
+      toast({
+        title: `${declineSuccess.message}`,
+      });
+    }
   }, [reqAccounts]);
+
+  useEffect(() => {
+    dispatch(GETRequestAction());
+  }, [dispatch]);
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
@@ -39,9 +55,16 @@ function RequestAcc() {
   const filteredAccount = accounst.filter((account) =>
     account.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
   useEffect(() => {
     setTableHeaders(createTableHeaders("chair"));
   }, []);
+
+  const handleDecline = async (data) => {
+    formData.append("userID", data.userID);
+    await mutate.mutateAsync(formData);
+    dispatch(GETRequestAction());
+  };
 
   return (
     <>
@@ -98,10 +121,7 @@ function RequestAcc() {
                           text={"Decline"}
                           variant={"cancel"}
                           onClick={() => {
-                            toast({
-                              title: "Decline Successfull !",
-                              description: `You decline account ${data.email}`,
-                            });
+                            handleDecline(data);
                           }}
                         />
                       </TableData>
