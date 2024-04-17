@@ -6,9 +6,12 @@ import Error from "../components/ui/Error";
 import Button from "../components/ui/Button";
 import Modal, { ModalHeader } from "../components/ui/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { LoginAction } from "@/redux/action/authAction";
+import { LoginAction, Request_Acc_Action } from "@/redux/action/authAction";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import * as types from "../redux/constants/authConstants";
+import { Toaster } from "@/components/ui/toaster";
+import { toast } from "@/components/ui/use-toast";
 
 function AuthPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,6 +29,7 @@ function AuthPage() {
         <img src={HERO} className="hero" />
         <Login setIsModalOpen={openModal} />
         {isModalOpen && <RegisterModal closeModal={closeModal} />}
+        <Toaster />
       </div>
     </>
   );
@@ -47,7 +51,7 @@ function Login({ setIsModalOpen }) {
     mutationFn: async (formData) => dispatch(LoginAction(formData, navigate)),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     formData.append("email", data.email);
     formData.append("password", data.password);
     mutate.mutateAsync(formData, navigate);
@@ -154,14 +158,59 @@ function Login({ setIsModalOpen }) {
 }
 
 function RegisterModal({ closeModal }) {
+  const formData = new FormData();
+  const dispatch = useDispatch();
+  const [emailError, setEmailError] = useState(null);
+  const [idError, setIdError] = useState(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const mutate = useMutation({
+    mutationFn: async (formData) => dispatch(Request_Acc_Action(formData)),
+  });
+
+  const requestError = useSelector((state) => state.auth?.requestError);
+  const requestSucess = useSelector((state) => state.auth?.requestSuccess);
+
+  useEffect(() => {
+    if (requestError) {
+      console.log(requestError);
+      if (requestError.statusCode === 401) {
+        setEmailError(requestError.message);
+      }
+
+      if (requestError.statusCode === 402) {
+        setIdError(requestError.message);
+      }
+
+      setTimeout(() => {
+        setEmailError(null);
+        setIdError(null);
+      }, 5000);
+    }
+    if (requestSucess) {
+      closeModal(true);
+      dispatch({ type: types.SET_NULL_SUCCESS, payload: null });
+      toast({
+        title: "Request Sent!",
+        description:
+          "Wait for comfirmation to accept your Request We will sent you an Email to your Password",
+      });
+    }
+  }, [requestError, requestSucess]);
+
   const onSubmit = (data) => {
-    console.log(data);
-    closeModal(true);
+    formData.append("firstname", data.firstname);
+    formData.append("lastname", data.lastname);
+    formData.append("email", data.email);
+    formData.append("user_id", data.user_id);
+    formData.append("department", data.department);
+    formData.append("request", data.request);
+    mutate.mutateAsync(formData);
   };
   return (
     <>
@@ -180,7 +229,7 @@ function RegisterModal({ closeModal }) {
                 })}
                 placeholder="Firstname"
                 type="text"
-                className="text_input bg-transparent w-64 pl-4"
+                className="text_input bg-transparent w-72 pl-4"
               />
               {errors.firstname && (
                 <Error
@@ -195,13 +244,13 @@ function RegisterModal({ closeModal }) {
                 })}
                 placeholder="Lastname"
                 type="text"
-                className="text_input bg-transparent w-64 pl-4"
+                className="text_input bg-transparent w-72 pl-4"
               />
               {errors.lastname && (
                 <Error
                   variant={"error_text"}
                   message={errors.lastname.message}
-                  className={"absolute top-11 right-36"}
+                  className={"absolute top-11 right-44"}
                 />
               )}
             </div>
@@ -219,10 +268,16 @@ function RegisterModal({ closeModal }) {
               placeholder="Enter Email"
               className="text_input w-45 bg-transparent pl-4 block w-full"
             />
-            {errors.email && (
+            {errors.email ? (
               <Error
                 variant={"error_text"}
                 message={errors.email.message}
+                className={"absolute top-15 "}
+              />
+            ) : (
+              <Error
+                variant={"error_text"}
+                message={emailError}
                 className={"absolute top-15 "}
               />
             )}
@@ -237,10 +292,16 @@ function RegisterModal({ closeModal }) {
               type="text"
               className="text_input bg-transparent w-45 pl-4 block w-full"
             />
-            {errors.user_id && (
+            {errors.user_id ? (
               <Error
                 variant={"error_text"}
                 message={errors.user_id.message}
+                className={"absolute top-15 "}
+              />
+            ) : (
+              <Error
+                variant={"error_text"}
+                message={idError}
                 className={"absolute top-15 "}
               />
             )}

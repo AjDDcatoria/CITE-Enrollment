@@ -3,7 +3,7 @@
 import * as React from "react";
 
 const TOAST_LIMIT = 3;
-const TOAST_REMOVE_DELAY = 50;
+const TOAST_REMOVE_DELAY = 100;
 
 const actionTypes = {
   ADD_TOAST: "ADD_TOAST",

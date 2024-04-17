@@ -38,7 +38,7 @@ function SideBar({ children, currentUser, variant, className, sideBarOpen }) {
         <div className="bg-transparent relative pb-3">
           <div className="bg-transparent flex gap-5">
             <Avatar
-              img={currentUser.profile ? currentUser.profile : tempProfile}
+              img={currentUser?.profile ? currentUser.profile : tempProfile}
               variant={"medium"}
               className={"rounded-lg"}
             />
@@ -46,12 +46,12 @@ function SideBar({ children, currentUser, variant, className, sideBarOpen }) {
               <span
                 className={`${sidebar} bg-transparent text-slate-200 name hover:underline cursor-pointer`}
               >
-                {`${currentUser.firstname} ${currentUser.lastname}`}
+                {`${currentUser?.firstname} ${currentUser?.lastname}`}
               </span>
               <span
                 className={`${sidebar} bg-transparent text-slate-400 block text-sm  name`}
               >
-                {currentUser.role}
+                {currentUser?.role}
               </span>
             </div>
           </div>

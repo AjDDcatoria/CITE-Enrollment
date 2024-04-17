@@ -43,3 +43,21 @@ export const LoginAction = (formData, navigate) => async (dispatch) => {
     navigate("/");
   }
 };
+
+export const Request_Acc_Action = (formData) => async (dispatch) => {
+  try {
+    const response = await API.req_account(formData);
+    const { error, data } = response;
+    if (error) {
+      dispatch({
+        type: types.REQ_ERROR,
+        payload: error,
+      });
+    } else {
+      dispatch({
+        type: types.REQ_SUCCESS,
+        payload: data,
+      });
+    }
+  } catch (error) {}
+};

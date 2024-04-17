@@ -29,6 +29,22 @@ class Request {
       throw new customError(`Email already used`, STATUS.UNAUTHORIZE);
     }
 
+    let idResult = await User.findOne({
+      where: { userID: data.userID },
+    });
+
+    if (idResult) {
+      throw new customError("Someone own this ID", STATUS.UNAUTHORIZE);
+    }
+
+    idResult = await accountRequestModel.findOne({
+      where: { userID: data.userID },
+    });
+
+    if (idResult) {
+      throw new customError("Someone already request this ID", 402);
+    }
+
     await accountRequestModel.create(data);
   }
 

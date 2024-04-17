@@ -25,7 +25,7 @@ export const createTableHeaders = (role) => {
 
 const NavigationUSER = (user) => {
   const nav = [];
-  switch (user.role) {
+  switch (user?.role) {
     case ROLE.STUDENT:
       nav.push(
         {

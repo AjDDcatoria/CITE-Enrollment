@@ -3,7 +3,7 @@
 import React, { useContext } from "react";
 import Header from "@/components/ui/Header";
 import SideBar from "@/components/ui/SideBar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Avatar from "@/components/ui/Avatar";
 import tempProfile from "@/assets/tempProfile2.jpg";
 import {
@@ -20,7 +20,8 @@ import { useSelector } from "react-redux";
 function UserPanel() {
   const { setSideBarInfo } = useContext(SideBarContext);
   const userData = useSelector((state) => state.auth?.userData);
-  const navUser = NavigationUSER(userData);
+
+  const navUser = NavigationUSER(userData?.role);
   const isSideBarOpen = (sidebarInfo) => {
     setSideBarInfo(sidebarInfo);
   };
@@ -28,13 +29,13 @@ function UserPanel() {
     <>
       <Header variant={"space_between"} className={"top-0"}>
         <span className="appTitle bg-transparent text-slate-100 text-2xl">
-          {userData.department}
+          {userData?.department}
         </span>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
               <Avatar
-                img={userData.profile ? userData : tempProfile}
+                img={userData?.profile ? userData : tempProfile}
                 variant={"small"}
                 className={"rounded-full"}
               />

@@ -5,6 +5,9 @@ const initialState = {
   successMessage: null,
   loginError: null,
   accessToken: null,
+  requestError: null,
+  errorMessage: null,
+  requestSuccess: null,
 };
 
 const auth = (state = initialState, action) => {
@@ -37,6 +40,26 @@ const auth = (state = initialState, action) => {
         userData: payload ? payload : null,
       };
 
+    case types.REQ_ERROR:
+      return {
+        ...state,
+        requestError: payload ? payload : null,
+      };
+
+    case types.REQ_SUCCESS:
+      return {
+        ...state,
+        requestSuccess: payload ? payload : null,
+        successMessage: payload ? payload.message : null,
+      };
+
+    case type.SET_NULL_SUCCESS: {
+      return {
+        ...state,
+        requestSuccess: null,
+        successMessage: null,
+      };
+    }
     default:
       return null;
   }

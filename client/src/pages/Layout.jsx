@@ -11,6 +11,7 @@ import DashBoard from "@/components/DashBoard";
 import RequestAcc from "@/components/RequestAcc";
 import AddSubjects from "@/components/AddSubjects";
 import UserPanel from "./UserPanel";
+import { ProtectedLayout } from "./protected/Protected";
 
 const router = createBrowserRouter([
   {
@@ -20,9 +21,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <SideBarContextProvider>
-        <UserPanel />
-      </SideBarContextProvider>
+      <ProtectedLayout>
+        <SideBarContextProvider>
+          <UserPanel />
+        </SideBarContextProvider>
+      </ProtectedLayout>
     ),
     children: [
       {
@@ -47,7 +50,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/chair/:id",
-        element: <DashBoard />,
+        element: (
+          <ProtectedLayout>
+            <DashBoard />
+          </ProtectedLayout>
+        ),
       },
       {
         path: "/chair/request-accounts/:id",
