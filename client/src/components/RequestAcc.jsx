@@ -11,34 +11,26 @@ import Table, {
 import Button from "./ui/Button";
 import { Toaster } from "./ui/toaster";
 import { toast } from "./ui/use-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { GETRequestAction } from "@/redux/action/chairAction";
 
 function RequestAcc() {
   const { sideBarInfo } = useContext(SideBarContext);
   const [tableHeaders, setTableHeaders] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [accounst, setAccounts] = useState([
-    {
-      firstname: "AJ",
-      lastname: "Dedicatoria",
-      email: "aj@gmail.com",
-      userID: "stud-0001",
-      department: "CITE",
-    },
-    {
-      firstname: "Echo",
-      lastname: "Perez",
-      email: "echo@gmail.com",
-      userID: "stud-0001",
-      department: "CITE",
-    },
-    {
-      firstname: "John",
-      lastname: "Doe",
-      email: "john@gmail.com",
-      userID: "stud-0001",
-      department: "CITE",
-    },
-  ]);
+  const dispatch = useDispatch();
+  const [accounst, setAccounts] = useState([]);
+  useEffect(() => {
+    dispatch(GETRequestAction());
+  }, [dispatch]);
+
+  const reqAccounts = useSelector((state) => state.chair?.req_accounts);
+
+  useEffect(() => {
+    if (reqAccounts) {
+      setAccounts(reqAccounts);
+    }
+  }, [reqAccounts]);
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
@@ -50,9 +42,10 @@ function RequestAcc() {
   useEffect(() => {
     setTableHeaders(createTableHeaders("chair"));
   }, []);
+
   return (
     <>
-      <section className={`content-section ${sideBarInfo} `}>
+      <section className={`content-section ${sideBarInfo} overflow-y-scroll`}>
         <SearchBar
           placeholder={"Search email..."}
           variant={"square"}
@@ -73,12 +66,12 @@ function RequestAcc() {
         ) : (
           <Table className={"rounded-md mt-10 overflow-hidden "}>
             <CreateTableHeaders values={tableHeaders} />
-            <TableBody className="bg-white">
+            <TableBody className="bg-white ">
               {filteredAccount.length > 0 ? (
                 filteredAccount.map((data, index) => {
                   return (
                     <TableRow
-                      key={index}
+                      key={data.id}
                       className={"border-b-2 border-slate-200"}
                     >
                       <TableData>{index + 1}.</TableData>

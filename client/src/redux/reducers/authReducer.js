@@ -13,7 +13,7 @@ const initialState = {
   logoutFail: null,
 };
 
-const auth = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case types.LOGIN:
@@ -76,8 +76,8 @@ const auth = (state = initialState, action) => {
       };
     }
     default:
-      return null;
+      return state;
   }
 };
 
-export default auth;
+export default authReducer;
