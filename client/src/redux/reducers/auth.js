@@ -8,6 +8,9 @@ const initialState = {
   requestError: null,
   errorMessage: null,
   requestSuccess: null,
+  logoutSuccess: null,
+  logoutError: null,
+  logoutFail: null,
 };
 
 const auth = (state = initialState, action) => {
@@ -32,6 +35,18 @@ const auth = (state = initialState, action) => {
         ...state,
         successMessage: null,
         loginError: payload ? payload : null,
+      };
+
+    case types.LOGOUT:
+      return {
+        ...state,
+        userData: null,
+        successMessage: null,
+        loginError: null,
+        accessToken: null,
+        requestError: null,
+        errorMessage: null,
+        requestSuccess: null,
       };
 
     case types.SET_USER_DATA:

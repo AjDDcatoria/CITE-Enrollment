@@ -62,15 +62,16 @@ function Login({ setIsModalOpen }) {
     if (loginError) {
       if (loginError.statusCode === 404) {
         setEmailError(loginError.message);
+        setTimeout(() => {
+          setEmailError(null);
+        }, 5000);
       }
       if (loginError.statusCode === 401) {
         setPassError(loginError.message);
+        setTimeout(() => {
+          setPassError(null);
+        }, 5000);
       }
-
-      setTimeout(() => {
-        setEmailError(null);
-        setPassError(null);
-      }, 5000);
     }
   }, [loginError]);
 

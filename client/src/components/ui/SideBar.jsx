@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import Avatar from "./Avatar";
 import Button from "./Button";
 import tempProfile from "../../assets/tempProfile.jpg";
+import { useMutation } from "@tanstack/react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { LogoutAction } from "@/redux/action/authAction";
+import { useNavigate } from "react-router-dom";
 
 const sideBarVariant = (variant) => {
   const variants = {
@@ -13,7 +17,8 @@ const sideBarVariant = (variant) => {
 function SideBar({ children, currentUser, variant, className, sideBarOpen }) {
   const [isOpen, setOpen] = useState(false);
   const [sidebar, setSideBar] = useState("");
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     if (isOpen) {
       setSideBar("openSidebar");
@@ -26,6 +31,25 @@ function SideBar({ children, currentUser, variant, className, sideBarOpen }) {
 
   const handleClick = () => {
     setOpen(!isOpen);
+  };
+
+  const mutate = useMutation({
+    mutationFn: () => dispatch(LogoutAction(navigate)),
+  });
+
+  const logoutError = useSelector((state) => state.auth?.logoutError);
+  const logoutSuccess = useSelector((state) => state.auth?.logoutSuccess);
+  useEffect(() => {
+    if (logoutError) {
+      console.log(logoutError.message);
+    }
+    if (logoutSuccess) {
+      console.log("Logout Successful");
+    }
+  }, [logoutError]);
+
+  const handleLogout = () => {
+    mutate.mutateAsync();
   };
 
   return (
@@ -64,6 +88,7 @@ function SideBar({ children, currentUser, variant, className, sideBarOpen }) {
           {children}
           <Button
             text={"Logout"}
+            onClick={handleLogout}
             variant={"logout"}
             className={`${sidebar} absolute logout-btn`}
             icon={<i className="bx bx-log-out bx-flip-horizontal"></i>}

@@ -44,6 +44,24 @@ export const LoginAction = (formData, navigate) => async (dispatch) => {
   }
 };
 
+export const LogoutAction = (navigate) => async (dispatch) => {
+  try {
+    const response = await API.logout();
+    const { data } = response;
+    localStorage.removeItem("profile");
+    dispatch({
+      type: types.LOGOUT,
+      payload: data,
+    });
+    navigate("/");
+  } catch (error) {
+    dispatch({
+      type: types.ERROR_MESSAGE,
+      payload: types.ERROR_MESSAGE,
+    });
+  }
+};
+
 export const Request_Acc_Action = (formData) => async (dispatch) => {
   try {
     const response = await API.req_account(formData);

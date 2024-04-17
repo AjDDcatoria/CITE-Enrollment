@@ -16,6 +16,18 @@ export const login = async (formData) => {
   }
 };
 
+export const logout = async () => {
+  try {
+    const response = await api.patch("/api/auth/logout");
+    return { error: null, data: response.data };
+  } catch (error) {
+    return {
+      error: error.response.data,
+      data: null,
+    };
+  }
+};
+
 export const req_account = async (formData) => {
   try {
     const response = await api.post("/api/request/account", {
