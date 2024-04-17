@@ -19,6 +19,11 @@ class AuthController {
 
     req.session.currentUser = userResult;
     const { userID, email, ...other } = userResult;
+
+    res.cookie("access_token", access_token, {
+      httpOnly: false,
+    });
+
     res.status(STATUS.OK).json({
       user: { ...other },
       accessToken: access_token,

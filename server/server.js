@@ -65,16 +65,16 @@ app.use(
   studentRoutes
 );
 app.use(
-  "/api/instructor",
-  token.validateToken,
-  authRole(ROLE.instructor),
-  instructorRoutes
-);
-app.use(
   "/api/chair",
   token.validateToken,
   authRole(ROLE.department_chair),
   chairRoutes
+);
+app.use(
+  "/api/instructor",
+  token.validateToken,
+  authRole(ROLE.instructor),
+  instructorRoutes
 );
 
 app.all("*", (req, res, next) => {
