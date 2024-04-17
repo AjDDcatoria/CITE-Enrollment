@@ -3,7 +3,6 @@ import * as types from "../constants/authConstants";
 
 export const initializeAuth = () => async (dispatch) => {
   const accessToken = JSON.parse(localStorage.getItem("profile"))?.accessToken;
-
   if (accessToken) {
     dispatch(setUserData(JSON.parse(localStorage.getItem("profile")).user));
   }
@@ -33,12 +32,13 @@ export const LoginAction = (formData, navigate) => async (dispatch) => {
         type: types.LOG_IN_SUCCESS,
         payload: profile,
       });
+
       navigate(`/${user.role}/${user.id}`);
     }
   } catch (error) {
     await dispatch({
-      type: types.SIGN_IN_FAIL,
-      payload: types.ERROR_MESSAGE,
+      type: types.LOG_IN_FAIL,
+      payload: error,
     });
     navigate("/");
   }

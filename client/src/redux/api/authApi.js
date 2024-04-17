@@ -1,7 +1,7 @@
 import { axiosInstance as api } from "./axiosInstance";
 
 export const login = async (formData) => {
-  axios.defaults.withCredentials = true;
+  api.defaults.withCredentials = true;
   try {
     const response = await api.post("/api/auth/login", {
       email: formData.get("email"),

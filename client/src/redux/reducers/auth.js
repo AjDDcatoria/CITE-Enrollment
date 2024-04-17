@@ -23,11 +23,11 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         userData: payload ? payload.user : null,
-        accessToken: payload ? payload.accessToken : null,
+        accessToken: payload ? payload : null,
         loginError: null,
       };
 
-    case types.SIGN_IN_FAIL:
+    case types.LOG_IN_FAIL:
       return {
         ...state,
         successMessage: null,

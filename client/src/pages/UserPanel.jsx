@@ -21,7 +21,7 @@ function UserPanel() {
   const { setSideBarInfo } = useContext(SideBarContext);
   const userData = useSelector((state) => state.auth?.userData);
 
-  const navUser = NavigationUSER(userData?.role);
+  const navUser = NavigationUSER(userData?.role ? userData : null);
   const isSideBarOpen = (sidebarInfo) => {
     setSideBarInfo(sidebarInfo);
   };

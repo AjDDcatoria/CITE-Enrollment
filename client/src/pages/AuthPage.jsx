@@ -51,10 +51,10 @@ function Login({ setIsModalOpen }) {
     mutationFn: async (formData) => dispatch(LoginAction(formData, navigate)),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     formData.append("email", data.email);
     formData.append("password", data.password);
-    mutate.mutateAsync(formData, navigate);
+    await mutate.mutateAsync(formData);
   };
   const loginError = useSelector((state) => state.auth?.loginError);
 

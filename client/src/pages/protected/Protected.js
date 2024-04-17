@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 export const ProtectedLayout = ({ children }) => {
   const navigate = useNavigate();
-  const accessToken = useSelector((state) => state.auth?.accessToken);
+  const accessToken = JSON.parse(localStorage.getItem("profile"))?.accessToken;
+
   useEffect(() => {
     if (!accessToken) {
       return navigate("/");
