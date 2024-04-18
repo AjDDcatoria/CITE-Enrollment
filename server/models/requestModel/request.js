@@ -133,7 +133,7 @@ class Request {
     }
 
     const enrollResult = await EnrollModel.findOne({
-      where: { userId: studentInfo.id },
+      where: { userId: studentInfo.id, roomId: room.roomId },
     });
 
     if (enrollResult) {

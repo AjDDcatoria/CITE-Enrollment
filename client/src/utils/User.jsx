@@ -1,3 +1,5 @@
+import { useParams } from "react-router-dom";
+
 export const ROLE = {
   STUDENT: "student",
   CHAIR: "chair",
@@ -25,31 +27,32 @@ export const createTableHeaders = (role) => {
 
 const NavigationUSER = (user) => {
   const nav = [];
+  const { id } = useParams();
   switch (user?.role) {
     case ROLE.STUDENT:
       nav.push(
         {
-          to: `/student/${user.id}`,
+          to: `/student/${id}`,
           text: "Room",
           icon: <i className="pt-2 fi fi-sr-book-open-cover"></i>,
         },
         {
-          to: `/student/todo-list/${user.id}`, // ! temp id = 1
+          to: `/student/todo-list/${id}`, // ! temp id = 1
           text: "Todo-List",
           icon: <i className="pt-2 fi fi-sr-journal"></i>,
         },
         {
-          to: `/message/${user.id}`,
+          to: `/message/${id}`,
           text: "Message",
           icon: <i className="pt-2 fi fi-sr-comment-alt"></i>,
         },
         {
-          to: `/student/enroll/${user.id}`,
+          to: `/student/enroll/${id}`,
           text: "Enroll",
           icon: <i className="pt-2 fi fi-sr-graduation-cap"></i>,
         },
         {
-          to: `/settings/${user.id}`,
+          to: `/settings/${id}`,
           text: "Settings",
           icon: <i className="pt-2 fi fi-sr-settings"></i>,
         }
@@ -59,17 +62,17 @@ const NavigationUSER = (user) => {
     case ROLE.CHAIR:
       nav.push(
         {
-          to: `/chair/${user.id}`,
+          to: `/chair/${id}`,
           text: "DashBoard",
           icon: <i className="fi fi-sr-chart-simple"></i>,
         },
         {
-          to: `/chair/add-subjects/${user.id}`,
+          to: `/chair/add-subjects/${id}`,
           text: "Add Subjects",
           icon: <i className="fi fi-sr-book-open-cover"></i>,
         },
         {
-          to: `/chair/request-accounts/${user.id}`,
+          to: `/chair/request-accounts/${id}`,
           text: "Request Accounts",
           icon: <i className="fi fi-sr-user-check"></i>,
         }
@@ -77,17 +80,17 @@ const NavigationUSER = (user) => {
     case ROLE.INSTRUCTOR:
       nav.push(
         {
-          to: `/instructor/${user.id}`,
+          to: `/instructor/${id}`,
           text: "Room",
           icon: <i className="pt-2 fi fi-sr-book-open-cover"></i>,
         },
         {
-          to: `/message/${user.id}`,
+          to: `/message/${id}`,
           text: "Message",
           icon: <i className="pt-2 fi fi-sr-comment-alt"></i>,
         },
         {
-          to: `/settings/${user.id}`,
+          to: `/settings/${id}`,
           text: "Settings",
           icon: <i className="pt-2 fi fi-sr-settings"></i>,
         }

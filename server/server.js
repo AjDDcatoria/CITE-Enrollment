@@ -4,6 +4,7 @@ const authRoutes = require("./routes/authRoutes");
 const requestRoutes = require("./routes/requestRoutes");
 const chairRoutes = require("./routes/chairRoutes");
 const instructorRoutes = require("./routes/instructorRoutes");
+const roomRoutes = require("./routes/roomRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const token = require("./middleware/token/jwt");
 const { ROLE, authRole } = require("./middleware/userRole/role");
@@ -56,6 +57,7 @@ app.get("/myserver", (req, res) => {
   res.status(200).json({ message: "Server is Running" });
 });
 
+app.use("/api/room", token.validateToken, roomRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/request", requestRoutes);
 app.use(

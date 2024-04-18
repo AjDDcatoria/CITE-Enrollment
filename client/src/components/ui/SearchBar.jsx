@@ -14,7 +14,8 @@ function SearchBar({
   color,
   position,
   onChange,
-  onsubmit,
+  onClick,
+  btnText,
 }) {
   return (
     <>
@@ -30,8 +31,11 @@ function SearchBar({
           placeholder={placeholder}
           className={`${className} pl-2`}
         />
-        <button className="text-slate-300 bg-slate-700 pl-4 pr-4 rounded-sm">
-          Search
+        <button
+          onClick={onClick}
+          className="text-slate-300 bg-slate-700 pl-4 pr-4 rounded-sm"
+        >
+          {btnText ? btnText : "Search"}
         </button>
       </div>
     </>

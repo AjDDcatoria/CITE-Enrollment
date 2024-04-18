@@ -1,6 +1,9 @@
+const sequelize = require("../../config/db.js");
 const UserModel = require("../userModel/userModel");
 const ClassMemberModel = require("./classMemberModel.js");
 const RoomModel = require("./roomModel");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
 class Room {
   async createRoom(roomInfo, instructorData, subjectInfo) {
@@ -15,7 +18,7 @@ class Room {
     //Get room info
     const roomData = await RoomModel.findOne({
       where: {
-        roonName: roomInfo.roomName,
+        roomName: roomInfo.roomName,
         instructorID: roomInfo.instructorID,
         schedStart: roomInfo.schedStart,
         schedEnd: roomInfo.schedEnd,
@@ -32,6 +35,15 @@ class Room {
       where: { id: userId },
     });
     return roomResult;
+  }
+
+  async getUserRooms(userId) {
+    const room = await sequelize.query(process.env.GETUSERROOM, {
+      replacements: [userId],
+      type: sequelize.QueryTypes.SELECT,
+    });
+
+    return room;
   }
 
   async addClassMember(userData, roomInfo) {

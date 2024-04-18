@@ -11,7 +11,9 @@ import DashBoard from "@/components/DashBoard";
 import RequestAcc from "@/components/RequestAcc";
 import AddSubjects from "@/components/AddSubjects";
 import UserPanel from "./UserPanel";
-import { ProtectedLayout } from "./protected/Protected";
+import { ProtectedLayout } from "./protected/ProtectedLayout";
+import ErrorPath from "@/components/ErrorPath";
+import ProtectedRoutes from "./protected/ProtectedRoutes";
 
 const router = createBrowserRouter([
   {
@@ -30,43 +32,79 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/student/:id",
-        element: <Room />,
+        element: (
+          <ProtectedRoutes>
+            <Room />
+          </ProtectedRoutes>
+        ),
       },
       {
         path: "/student/todo-list/:id",
-        element: <TodoList />,
+        element: (
+          <ProtectedRoutes>
+            <TodoList />
+          </ProtectedRoutes>
+        ),
       },
       {
         path: "/message/:id",
-        element: <Message />,
+        element: (
+          <ProtectedRoutes>
+            <Message />
+          </ProtectedRoutes>
+        ),
       },
       {
         path: "/student/enroll/:id",
-        element: <Enroll />,
+        element: (
+          <ProtectedRoutes>
+            <Enroll />
+          </ProtectedRoutes>
+        ),
       },
       {
         path: "/settings/:id",
-        element: <Settings />,
+        element: (
+          <ProtectedRoutes>
+            <Settings />
+          </ProtectedRoutes>
+        ),
       },
       {
         path: "/chair/:id",
         element: (
-          <ProtectedLayout>
+          <ProtectedRoutes>
             <DashBoard />
-          </ProtectedLayout>
+          </ProtectedRoutes>
         ),
       },
       {
         path: "/chair/request-accounts/:id",
-        element: <RequestAcc />,
+        element: (
+          <ProtectedRoutes>
+            <RequestAcc />
+          </ProtectedRoutes>
+        ),
       },
       {
         path: "/chair/add-subjects/:id",
-        element: <AddSubjects />,
+        element: (
+          <ProtectedRoutes>
+            <AddSubjects />
+          </ProtectedRoutes>
+        ),
       },
       {
         path: "/instructor/:id",
-        element: <Room />,
+        element: (
+          <ProtectedRoutes>
+            <Room />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/*",
+        element: <ErrorPath />,
       },
     ],
   },
