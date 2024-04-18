@@ -16,11 +16,10 @@ export const GETRequestAction = () => async (dispatch) => {
         payload: data,
       });
     }
-    return null;
   } catch (error) {
     dispatch({
-      type: types.REQUEST_FAIL,
-      payload: types.REQUEST_FAIL_MESSAGE,
+      type: types.SERVER_ERROR,
+      payload: types.SERVER_ERRROR_MESSAGE,
     });
   }
 };
@@ -31,19 +30,42 @@ export const DeclineRequest = (formData) => async (dispatch) => {
     const { error, data } = response;
     if (error) {
       dispatch({
-        type: types.DECLINE_ERROR,
+        type: types.REQUEST_ERROR,
         payload: error,
       });
     } else {
       dispatch({
-        type: types.DECLINE_SUCCESS,
+        type: types.SUCCESS_MESSAGE,
         payload: data,
       });
     }
   } catch (error) {
     dispatch({
-      type: types.DECLINE_FAIL,
-      payload: types.REQUEST_FAIL_MESSAGE,
+      type: types.SERVER_ERROR,
+      payload: types.SERVER_ERRROR_MESSAGE,
+    });
+  }
+};
+
+export const AcceptRequest = (formData) => async (dispatch) => {
+  try {
+    const response = await API.acceptRequest(formData);
+    const { error, data } = response;
+    if (error) {
+      dispatch({
+        type: types.REQUEST_ERROR,
+        payload: error,
+      });
+    } else {
+      dispatch({
+        type: types.SUCCESS_MESSAGE,
+        payload: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: types.SERVER_ERROR,
+      payload: types.SERVER_ERRROR_MESSAGE,
     });
   }
 };

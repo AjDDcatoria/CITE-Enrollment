@@ -12,8 +12,13 @@ import Button from "./ui/Button";
 import { Toaster } from "./ui/toaster";
 import { toast } from "./ui/use-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { DeclineRequest, GETRequestAction } from "@/redux/action/chairAction";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  AcceptRequest,
+  DeclineRequest,
+  GETRequestAction,
+} from "@/redux/action/chairAction";
+import { useMutation } from "@tanstack/react-query";
+import * as types from "../redux/constants/chairConstants";
 
 function RequestAcc() {
   const { sideBarInfo } = useContext(SideBarContext);
@@ -24,22 +29,33 @@ function RequestAcc() {
   const dispatch = useDispatch();
   const formData = new FormData();
 
-  const mutate = useMutation({
+  const declineMutate = useMutation({
     mutationFn: async (formData) => dispatch(DeclineRequest(formData)),
     onMutate: () => {
       console.log("Loading");
     },
   });
 
-  const declineSuccess = useSelector((state) => state.chair?.declineSucessFul);
+  const acceptMutate = useMutation({
+    mutationFn: async (formData) => dispatch(AcceptRequest(formData)),
+    onMutate: () => {
+      console.log("Loading");
+    },
+  });
+
+  const successMessage = useSelector((state) => state.chair?.successMessage);
 
   useEffect(() => {
     if (reqAccounts) {
       setAccounts(reqAccounts);
     }
-    if (declineSuccess) {
+    if (successMessage) {
       toast({
-        title: `${declineSuccess.message}`,
+        title: `${successMessage}`,
+      });
+      dispatch({
+        type: types.RESET_SUCCESS_MESSAGE,
+        payload: null,
       });
     }
   }, [reqAccounts]);
@@ -62,7 +78,14 @@ function RequestAcc() {
 
   const handleDecline = async (data) => {
     formData.append("userID", data.userID);
-    await mutate.mutateAsync(formData);
+    await declineMutate.mutateAsync(formData);
+    dispatch(GETRequestAction());
+  };
+
+  const handleAccept = async (data) => {
+    formData.append("userID", data.userID);
+    formData.append("id", data.id);
+    await acceptMutate.mutateAsync(formData);
     dispatch(GETRequestAction());
   };
 
@@ -111,10 +134,7 @@ function RequestAcc() {
                           text={"Accept"}
                           variant={"submit"}
                           onClick={() => {
-                            toast({
-                              title: "Accept Successfull !",
-                              description: `You accept account ${data.email}`,
-                            });
+                            handleAccept(data);
                           }}
                         />
                         <Button

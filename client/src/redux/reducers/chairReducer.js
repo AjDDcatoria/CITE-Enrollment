@@ -2,9 +2,9 @@ import * as types from "../constants/chairConstants";
 
 const initialState = {
   req_accounts: null,
-  req_error: null,
-  req_error_message: null,
-  declineSucessFul: null,
+  successMessage: null,
+  errorMessage: null,
+  serverMessage: null,
 };
 
 const chairReducer = (state = initialState, action) => {
@@ -20,21 +20,42 @@ const chairReducer = (state = initialState, action) => {
     case types.REQUEST_ERROR: {
       return {
         ...state,
-        req_error: payload ? payload : null,
+        errorMessage: payload ? payload.message : null,
       };
     }
 
-    case types.REQUEST_FAIL: {
+    case types.RESET_ERROR_MESSAGE: {
       return {
         ...state,
-        req_error_message: payload ? payload : null,
+        errorMessage: null,
       };
     }
 
-    case types.DECLINE_SUCCESS: {
+    case types.SERVER_ERROR: {
       return {
         ...state,
-        declineSucessFul: payload ? payload : null,
+        serverMessage: payload ? payload.message : null,
+      };
+    }
+
+    case types.RESET_SERVER_MESSAGE: {
+      return {
+        ...state,
+        serverMessage: null,
+      };
+    }
+
+    case types.SUCCESS_MESSAGE: {
+      return {
+        ...state,
+        successMessage: payload ? payload.message : null,
+      };
+    }
+
+    case types.RESET_SUCCESS_MESSAGE: {
+      return {
+        ...state,
+        successMessage: null,
       };
     }
 

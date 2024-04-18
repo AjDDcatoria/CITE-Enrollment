@@ -18,12 +18,29 @@ export const declineRequest = async (formData) => {
   try {
     const response = await api.post("/api/chair/reject-accounts", {
       userID: formData.get("userID"),
+      id: formData.get("id"),
     });
     return {
       error: null,
       data: response.data,
     };
   } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const acceptRequest = async (formData) => {
+  try {
+    const response = await api.post("/api/chair/accept-accounts", {
+      userID: formData.get("userID"),
+      id: formData.get("id"),
+    });
+    return {
+      error: null,
+      data: response.data,
+    };
+  } catch (error) {
+    console.error(error);
     return handleApiError(error);
   }
 };
