@@ -1,47 +1,39 @@
 import { SideBarContext } from "@/context/sideBarContext";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SearchBar from "./ui/SearchBar";
 import Card from "./ui/Cards";
 import Button from "./ui/Button";
 import Avatar from "./ui/Avatar";
 import backgroundTemp from "@/assets/CET.jpg";
 import tempProfile from "@/assets/tempProfile2.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_ROOM } from "@/redux/action/roomActions";
+import { useNavigate } from "react-router-dom";
 
 function Room() {
   const { sideBarInfo } = useContext(SideBarContext);
+  const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
-  const [subjects, setSubjects] = useState([
-    {
-      subject_name: "Algorithmn and Complexity",
-      year: 2,
-      schedule: "10:00 am to 11:30 am",
-      instructor: "Aj DDcatoria",
-      background: backgroundTemp,
-      profile: tempProfile,
-    },
-    {
-      subject_name: "Introduction to Computing",
-      year: 2,
-      schedule: "10:00 am to 11:30 am",
-      instructor: "Aj DDcatoria",
-      background: backgroundTemp,
-      profile: tempProfile,
-    },
-    {
-      subject_name: "Intermediate Programming Java",
-      year: 2,
-      schedule: "10:00 am to 11:30 am",
-      instructor: "Aj DDcatoria",
-      background: backgroundTemp,
-      profile: tempProfile,
-    },
-  ]);
+  const [rooms, setRooms] = useState([]);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredSubjects = subjects.filter((sub) =>
-    sub.subject_name.toLowerCase().includes(searchTerm.toLowerCase())
+  const getRoomSuccess = useSelector((state) => state.room?.roomsData);
+
+  useEffect(() => {
+    dispatch(GET_ROOM());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (getRoomSuccess) {
+      setRooms(getRoomSuccess);
+    }
+  }, [getRoomSuccess]);
+
+  const filteredSubjects = rooms.filter((rooms) =>
+    rooms.roomName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -65,7 +57,7 @@ function Room() {
         />
         <div className="list-subjects ">
           {filteredSubjects.length > 0 ? (
-            filteredSubjects.map((sub, index) => (
+            filteredSubjects.map((room, index) => (
               <Card
                 key={index}
                 variant={"box2"}
@@ -76,27 +68,27 @@ function Room() {
                 <div className="background relative w-full">
                   <div className="background-container relative">
                     <img
-                      src={sub.background}
+                      src={room.background ? room.background : backgroundTemp}
                       className="object-cover h-32 w-full"
                     />
                   </div>
                   <Avatar
-                    img={sub.profile}
+                    img={room.profile ? room.profile : tempProfile}
                     variant={"large"}
                     className={"rounded-full absolute subject-profile"}
                   />
                 </div>
                 <div className="content bg-transparent text-center mt-10 ">
                   <span className="username text-slate-700 bg-transparent text-lg hover:underline">
-                    {sub.instructor}
+                    {room.firstname + " " + room.lastname}
                   </span>
                   <br />
                   <span className="subjectname text-sm  text-slate-700 bg-transparent ">
-                    {sub.subject_name}
+                    {room.roomName + `(${room.block})`}
                   </span>
                   <br />
                   <span className="schedule text-slate-700 text-sm bg-transparent">
-                    {sub.schedule}
+                    {room.schedStart + " to  " + room.schedEnd}
                   </span>
                   <br />
                 </div>
