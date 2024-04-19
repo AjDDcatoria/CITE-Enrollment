@@ -46,7 +46,7 @@ function Room() {
           variant={"square"}
           onChange={handleChange}
           color={"dark"}
-          btnText={"Subject+"}
+          btnText={"Search"}
           position={"mt-5 p-1 relative"}
           icon={
             <i className="bx bx-search search-bar-icon absolute text-3xl text-slate-200 left-5"></i>

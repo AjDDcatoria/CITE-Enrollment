@@ -54,6 +54,7 @@ export const LogoutAction = (navigate) => async (dispatch) => {
       payload: data,
     });
     navigate("/");
+    window.location.reload();
   } catch (error) {
     dispatch({
       type: types.ERROR_MESSAGE,

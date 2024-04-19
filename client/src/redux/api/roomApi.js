@@ -13,3 +13,17 @@ export const getRoom = async () => {
     return handleApiError(error);
   }
 };
+
+export const getAvaibleRooms = async () => {
+  api.defaults.withCredentials = true;
+  try {
+    const response = await api.get("/api/student/get-available-rooms");
+    return {
+      data: response.data,
+      error: null,
+    };
+  } catch (error) {
+    console.info(error);
+    return handleApiError(error);
+  }
+};

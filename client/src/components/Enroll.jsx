@@ -1,5 +1,5 @@
 import { SideBarContext } from "@/context/sideBarContext";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SearchBar from "./ui/SearchBar";
 import tempProfile from "@/assets/tempProfile2.jpg";
 import Card from "./ui/Cards";
@@ -8,11 +8,27 @@ import backgroundTemp from "@/assets/CET.jpg";
 import Avatar from "./ui/Avatar";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "./ui/toaster";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_AVAIBLE_ROOMS } from "@/redux/action/roomActions";
 
 function Enroll() {
   const { toast } = useToast();
   const { sideBarInfo } = useContext(SideBarContext);
   const [searchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(GET_AVAIBLE_ROOMS);
+  }, [dispatch]);
+
+  const avaibleRooms = useSelector((state) => state.room?.availableRooms);
+
+  useEffect(() => {
+    if (avaibleRooms) {
+      console.log(avaibleRooms);
+    }
+  }, [avaibleRooms]);
+
   const [subjects, setSubjects] = useState([
     {
       subject_name: "Algorithmn and Complexity",
@@ -109,7 +125,7 @@ function Enroll() {
                   className={"mt-5"}
                   onClick={() => {
                     toast({
-                      title: "Submmited Successfull !",
+                      title: "Submmited Successful !",
                       description: `Please wait for comfirmation to ${sub.instructor}`,
                     });
                   }}

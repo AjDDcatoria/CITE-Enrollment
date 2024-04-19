@@ -4,6 +4,7 @@ const initialState = {
   roomsData: null,
   errorMessage: null,
   successMessage: null,
+  availableRooms: null,
 };
 
 const roomReducer = (state = initialState, action) => {
@@ -21,6 +22,14 @@ const roomReducer = (state = initialState, action) => {
         roomsData: payload ? payload : null,
       };
     }
+
+    case types.SET_AVAILABLE_ROOM: {
+      return {
+        ...state,
+        availableRooms: payload ? payload : null,
+      };
+    }
+
     default:
       return state;
   }
