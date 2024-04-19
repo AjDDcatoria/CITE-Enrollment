@@ -5,7 +5,7 @@ import Card from "./ui/Cards";
 import Button from "./ui/Button";
 import Avatar from "./ui/Avatar";
 import backgroundTemp from "@/assets/CET.jpg";
-import tempProfile from "@/assets/tempProfile2.jpg";
+import tempProfile from "@/assets/defaultProfile1.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_ROOM } from "@/redux/action/roomActions";
 import { useNavigate } from "react-router-dom";

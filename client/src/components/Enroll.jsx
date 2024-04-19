@@ -1,7 +1,7 @@
 import { SideBarContext } from "@/context/sideBarContext";
 import React, { useContext, useEffect, useState } from "react";
 import SearchBar from "./ui/SearchBar";
-import tempProfile from "@/assets/tempProfile2.jpg";
+import tempProfile from "@/assets/defaultProfile1.jpg";
 import Card from "./ui/Cards";
 import Button from "./ui/Button";
 import backgroundTemp from "@/assets/CET.jpg";

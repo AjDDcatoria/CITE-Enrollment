@@ -3,9 +3,9 @@
 import React, { useContext } from "react";
 import Header from "@/components/ui/Header";
 import SideBar from "@/components/ui/SideBar";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Avatar from "@/components/ui/Avatar";
-import tempProfile from "@/assets/tempProfile2.jpg";
+import tempProfile from "@/assets/defaultProfile1.jpg";
 import {
   Tooltip,
   TooltipContent,
@@ -35,7 +35,7 @@ function UserPanel() {
           <Tooltip>
             <TooltipTrigger>
               <Avatar
-                img={userData?.profile ? userData : tempProfile}
+                img={userData.profile ? userData.profile : tempProfile}
                 variant={"small"}
                 className={"rounded-full"}
               />

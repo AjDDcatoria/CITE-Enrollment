@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "./Avatar";
 import Button from "./Button";
-import tempProfile from "../../assets/tempProfile.jpg";
+import tempProfile from "../../assets/defaultProfile1.jpg";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { LogoutAction } from "@/redux/action/authAction";
@@ -62,7 +62,7 @@ function SideBar({ children, currentUser, variant, className, sideBarOpen }) {
         <div className="bg-transparent relative pb-3">
           <div className="bg-transparent flex gap-5">
             <Avatar
-              img={currentUser?.profile ? currentUser.profile : tempProfile}
+              img={currentUser.profile ? currentUser.profile : tempProfile}
               variant={"medium"}
               className={"rounded-lg"}
             />
