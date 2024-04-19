@@ -30,6 +30,21 @@ const roomReducer = (state = initialState, action) => {
       };
     }
 
+    case types.SUCCESS_MESSAGE: {
+      return {
+        ...state,
+        successMessage: payload ? payload.message : null,
+      };
+    }
+
+    case types.RESET_MESSAGE: {
+      return {
+        ...state,
+        successMessage: null,
+        errorMessage: null,
+      };
+    }
+
     default:
       return state;
   }

@@ -40,3 +40,23 @@ export const GET_AVAIBLE_ROOMS = async (dispatch) => {
     console.error(error);
   }
 };
+
+export const SEND_ENROLL = (formData) => async (dispatch) => {
+  try {
+    const response = await API.sendEnroll(formData);
+    const { error, data } = response;
+    if (error) {
+      dispatch({
+        type: types.REQUEST_ERROR,
+        payload: error,
+      });
+    } else {
+      dispatch({
+        type: types.SUCCESS_MESSAGE,
+        payload: data,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

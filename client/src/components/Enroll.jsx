@@ -9,60 +9,74 @@ import Avatar from "./ui/Avatar";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "./ui/toaster";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_AVAIBLE_ROOMS } from "@/redux/action/roomActions";
+import { GET_AVAIBLE_ROOMS, SEND_ENROLL } from "@/redux/action/roomActions";
+import { useMutation } from "@tanstack/react-query";
+import * as types from "../redux/constants/roomConstans";
 
 function Enroll() {
   const { toast } = useToast();
   const { sideBarInfo } = useContext(SideBarContext);
   const [searchTerm, setSearchTerm] = useState("");
+  const [subjects, setSubject] = useState([]);
   const dispatch = useDispatch();
+  const formData = new FormData();
 
   useEffect(() => {
     dispatch(GET_AVAIBLE_ROOMS);
   }, [dispatch]);
 
-  const avaibleRooms = useSelector((state) => state.room?.availableRooms);
+  const availableRooms = useSelector((state) => state.room?.availableRooms);
+  const sendSuccessfull = useSelector((state) => state.room?.successMessage);
 
   useEffect(() => {
-    if (avaibleRooms) {
-      console.log(avaibleRooms);
+    if (availableRooms) {
+      setSubject(
+        availableRooms.flatMap(({ firstname, lastname, profile, rooms }) =>
+          rooms.map((room) => ({
+            id: room.id,
+            subject_name: room.roomName,
+            block: room.block,
+            year: room.year,
+            schedule: `${room.schedStart} to ${room.schedEnd}`,
+            instructor: `${firstname} ${lastname}`,
+            background: backgroundTemp,
+            profile: profile || tempProfile,
+          }))
+        )
+      );
     }
-  }, [avaibleRooms]);
+  }, [availableRooms]);
 
-  const [subjects, setSubjects] = useState([
-    {
-      subject_name: "Algorithmn and Complexity",
-      year: 2,
-      schedule: "10:00 am to 11:30 am",
-      instructor: "Lea Mae Rebuyon",
-      background: backgroundTemp,
-      profile: tempProfile,
-    },
-    {
-      subject_name: "Introduction to Computing",
-      year: 2,
-      schedule: "10:00 am to 11:30 am",
-      instructor: "Aj DDcatoria",
-      background: backgroundTemp,
-      profile: tempProfile,
-    },
-    {
-      subject_name: "Intermediate Programming Java",
-      year: 2,
-      schedule: "10:00 am to 11:30 am",
-      instructor: "Aj DDcatoria",
-      background: backgroundTemp,
-      profile: tempProfile,
-    },
-  ]);
+  useEffect(() => {
+    if (sendSuccessfull) {
+      toast({
+        title: "Successfull",
+        description: `${sendSuccessfull}`,
+      });
+      dispatch({
+        type: types.RESET_MESSAGE,
+        payload: null,
+      });
+    }
+  }, [sendSuccessfull]);
+
+  const sendEnrollMustate = useMutation({
+    mutationFn: async (formData) => dispatch(SEND_ENROLL(formData)),
+  });
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredSubjects = subjects.filter((sub) =>
-    sub.subject_name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredSubjects = subjects.filter((room) =>
+    room.subject_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleEnroll = async (data) => {
+    formData.append("roomId", data);
+    await sendEnrollMustate.mutateAsync(formData);
+    formData.delete("id");
+  };
 
   return (
     <>
@@ -84,7 +98,7 @@ function Enroll() {
         />
         <div className="list-subjects ">
           {filteredSubjects.length > 0 ? (
-            filteredSubjects.map((sub, index) => (
+            filteredSubjects.map((room, index) => (
               <Card
                 key={index}
                 variant={"box2"}
@@ -95,27 +109,27 @@ function Enroll() {
                 <div className="background relative w-full">
                   <div className="background-container relative">
                     <img
-                      src={sub.background}
+                      src={room.background}
                       className="object-cover h-32 w-full"
                     />
                   </div>
                   <Avatar
-                    img={sub.profile}
+                    img={room.profile}
                     variant={"large"}
                     className={"rounded-full absolute subject-profile"}
                   />
                 </div>
                 <div className="content bg-transparent text-center mt-10 ">
                   <span className="username text-slate-700 bg-transparent text-lg hover:underline">
-                    {sub.instructor}
+                    {room.instructor}
                   </span>
                   <br />
                   <span className="subjectname text-sm  text-slate-700 bg-transparent ">
-                    {sub.subject_name}
+                    {room.subject_name + ` (${room.block})`}
                   </span>
                   <br />
                   <span className="schedule text-slate-700 text-sm bg-transparent">
-                    {sub.schedule}
+                    {room.schedule}
                   </span>
                   <br />
                 </div>
@@ -124,10 +138,7 @@ function Enroll() {
                   variant={"enroll"}
                   className={"mt-5"}
                   onClick={() => {
-                    toast({
-                      title: "Submmited Successful !",
-                      description: `Please wait for comfirmation to ${sub.instructor}`,
-                    });
+                    handleEnroll(room.id);
                   }}
                 />
               </Card>

@@ -23,7 +23,21 @@ export const getAvaibleRooms = async () => {
       error: null,
     };
   } catch (error) {
-    console.info(error);
+    return handleApiError(error);
+  }
+};
+
+export const sendEnroll = async (formtData) => {
+  try {
+    const response = await api.post("api/student/send-enroll", {
+      roomId: formtData.get("roomId"),
+    });
+    return {
+      data: response.data,
+      error: null,
+    };
+  } catch (error) {
+    console.error(error);
     return handleApiError(error);
   }
 };
