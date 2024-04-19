@@ -1,8 +1,10 @@
 const sequelize = require("../../config/db.js");
+const EnrollModel = require("../requestModel/enrollRequestModel.js");
 const UserModel = require("../userModel/userModel");
 const ClassMemberModel = require("./classMemberModel.js");
 const RoomModel = require("./roomModel");
 const path = require("path");
+const { Op } = require("sequelize");
 require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
 class Room {
@@ -53,6 +55,33 @@ class Room {
       userId: userData.id,
       roomId: roomInfo.id,
     });
+  }
+
+  // Use for students thats not included there room where they
+  // Already Enrolled
+  async getAvailableRooms(userID) {
+    let rooms = await sequelize.query(
+      process.env.GET_CLASS_ROOM_NAMES_BY_USER,
+      {
+        replacements: [userID],
+        type: sequelize.QueryTypes.SELECT,
+      }
+    );
+    // Arrays of roomNames
+    rooms = rooms.map((room) => room.roomName);
+
+    const availableRoom = UserModel.findAll({
+      attributes: ["profile", "firstname", "lastname"],
+      include: {
+        model: RoomModel,
+        where: {
+          roomName: {
+            [Op.notIn]: rooms,
+          },
+        },
+      },
+    });
+    return availableRoom;
   }
 }
 
