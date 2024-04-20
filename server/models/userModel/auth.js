@@ -45,26 +45,4 @@ class Auth {
   }
 }
 
-// const auth = new Auth();
-
-// auth.register({
-//   firstname: "AJ",
-//   lastname: "Dedicatoria",
-//   email: "aj@gmail.com",
-//   userID: "chair-101",
-//   password: "aj123",
-//   role: "chair",
-//   department: "CITE",
-// });
-
-// auth.register({
-//   firstname: "John",
-//   lastname: "Doe",
-//   email: "John@gmail.com",
-//   userID: "stud-001",
-//   password: "john",
-//   role: "student",
-//   department: "CITE",
-// });
-
 module.exports = Auth;

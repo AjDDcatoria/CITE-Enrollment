@@ -13,12 +13,19 @@ class InstructorController extends RequestController {
     this.subject = new Subject();
   }
 
+  /**
+   * Create a new room with schedule validation and auto add to classMemberModel
+   *
+   * @param {newRoom} req.body - Contains the room information including schedule
+   * @param {otherInfo} req.session.currentUser - The creator information
+   */
+
   createRoom = asyncHandler(async (req, res) => {
     const newRoom = req.body;
     const { createdAt, updatedAt, ...otherInfo } = req.session.currentUser;
 
     const subjectInfo = await this.subject.getSubjectByName(newRoom.roomName);
-    const instructorRooms = await this.room.getRoomsByUser(otherInfo.id);
+    const instructorRooms = await this.room.getInstructorRooms(otherInfo.id);
 
     // validate schedule
     validateSchedule(newRoom, instructorRooms.dataValues);
@@ -32,9 +39,8 @@ class InstructorController extends RequestController {
    * Retrives the enrollees base on instructors room , including roomId,roomName,
    * student fullname,student id block,year,
    *
-   * @route GET /api/"chair or instructor"/enrollee
-   *
-   * @param {String} req.session.userID - The instructur or userID that owns rooms
+   * @route  GET /api/"chair or instructor"/enrollee
+   * @param {object} req.session.userID - The instructur or userID that owns rooms
    */
 
   getEnrollee = asyncHandler(async (req, res) => {

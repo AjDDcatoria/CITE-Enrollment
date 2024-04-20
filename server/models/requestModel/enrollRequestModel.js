@@ -30,13 +30,4 @@ EnrollModel.init(
 RoomModel.EnrollModel = RoomModel.hasMany(EnrollModel);
 UserModel.EnrollModel = UserModel.hasMany(EnrollModel);
 
-// (async () => {
-//   try {
-//     await sequelize.sync({ force: true });
-//     console.log("Database synced successfully.");
-//   } catch (error) {
-//     console.error("Error:", error);
-//   }
-// })();
-
 module.exports = EnrollModel;

@@ -8,7 +8,6 @@ class StudentController {
     this.request = new Request();
     this.room = new Room();
   }
-  // Todo sending Enroll Request
   sendEnroll = asyncHandler(async (req, res) => {
     const studentInfo = req.session.currentUser;
     await this.request.sendEnroll(req.body, studentInfo);
@@ -16,6 +15,11 @@ class StudentController {
       .status(STATUS.CREATED)
       .json({ message: "Request Successfull please wait for comfirmation" });
   });
+
+  /**
+   * Retives avaible rooms for students to enroll
+   * @param {userID} - The userID of user or studentID
+   */
 
   getAvailableRooms = asyncHandler(async (req, res) => {
     const { userID } = req.session.currentUser;

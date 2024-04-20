@@ -4,6 +4,14 @@ const validateNewSubject = require("../../validators/subjects");
 const SubjectModel = require("./subjectModel");
 
 class Subject {
+  /**
+   * Creates a new subject
+   * @param {object} subjectData - data for the new subject
+   * @param {string} subjectData.subjectName - name of the subject
+   * @param {string} subjectData.subjectCode - code of the subject
+   * @param {boolean} [subjectData.isPrerequisite=false] - whether the subject is a prerequisite
+   * @param {string} [subjectData.prerequisite] - code of the prerequisite subject if it is a prerequisite
+   */
   async createSubject(subjectData) {
     validateNewSubject(subjectData);
 
