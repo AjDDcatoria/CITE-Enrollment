@@ -12,6 +12,9 @@ class ChairController extends RequestController {
     this.subject = new Subject();
   }
 
+  /**
+   * @route POST /api/chair/create-subject
+   */
   createSubject = asyncHandler(async (req, res) => {
     await this.subject.createSubject(req.body);
     res.status(STATUS.CREATED).json({ message: "Subject Created" });

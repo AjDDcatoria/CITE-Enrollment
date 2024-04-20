@@ -9,6 +9,9 @@ class AuthController {
     this.auth = new Auth();
   }
 
+  /**
+   * @route api/auth/login
+   */
   login = asyncHandler(async (req, res) => {
     if (req.session.currentUser) {
       throw new CustomError(`This device has already Login`, STATUS.FORBIDDEN);
@@ -30,6 +33,9 @@ class AuthController {
     });
   });
 
+  /**
+   * @route api/auth/logout
+   */
   logout = asyncHandler(async (req, res) => {
     req.session.destroy((err) => {
       if (err) throw new CustomError("Error destroy session", STATUS.SERVER);

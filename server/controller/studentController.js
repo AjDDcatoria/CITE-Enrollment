@@ -8,6 +8,9 @@ class StudentController {
     this.request = new Request();
     this.room = new Room();
   }
+  /**
+   * @route POST /api/student/send-enroll
+   */
   sendEnroll = asyncHandler(async (req, res) => {
     const studentInfo = req.session.currentUser;
     await this.request.sendEnroll(req.body, studentInfo);
@@ -18,6 +21,7 @@ class StudentController {
 
   /**
    * Retives avaible rooms for students to enroll
+   * @route api/student/get-avaible-rooms
    * @param {userID} - The userID of user or studentID
    */
 

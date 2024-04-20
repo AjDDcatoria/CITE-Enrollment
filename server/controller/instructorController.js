@@ -16,10 +16,10 @@ class InstructorController extends RequestController {
   /**
    * Create a new room with schedule validation and auto add to classMemberModel
    *
+   * @route POST api/"chair" or "instructor"/create-room
    * @param {newRoom} req.body - Contains the room information including schedule
    * @param {otherInfo} req.session.currentUser - The creator information
    */
-
   createRoom = asyncHandler(async (req, res) => {
     const newRoom = req.body;
     const { createdAt, updatedAt, ...otherInfo } = req.session.currentUser;
