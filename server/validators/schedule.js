@@ -23,14 +23,14 @@ function validateSchedule(newRoom, instructorRooms) {
 
     if (newStartTime >= startTime && newStartTime < endTime) {
       throw new CustomError(
-        `Overlap detected with room ${room.roomName}. Please choose a different time.`,
+        `Overlap schedule detected Please choose a different time.`,
         STATUS.UNAUTHORIZE
       );
     }
 
     if (newEndTime > startTime && newEndTime <= endTime) {
       throw new CustomError(
-        `Overlap detected with room ${room.roomName}. Please choose a different time.`,
+        `Overlap schedule detected  Please choose a different time.`,
         STATUS.UNAUTHORIZE
       );
     }

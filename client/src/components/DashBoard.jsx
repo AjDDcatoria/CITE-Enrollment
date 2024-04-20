@@ -6,7 +6,7 @@ function DashBoard() {
 
   return (
     <>
-      <section className={`content-section ${sideBarInfo}`}>DashBoard</section>
+      <section className={`content-section ${sideBarInfo}`}></section>
     </>
   );
 }
