@@ -27,6 +27,7 @@ function Enroll() {
 
   const availableRooms = useSelector((state) => state.room?.availableRooms);
   const sendSuccessfull = useSelector((state) => state.room?.successMessage);
+  const sendError = useSelector((state) => state.room?.errorMessage);
 
   useEffect(() => {
     if (availableRooms) {
@@ -58,7 +59,19 @@ function Enroll() {
         payload: null,
       });
     }
-  }, [sendSuccessfull]);
+    if (sendError) {
+      console.log(sendError);
+      toast({
+        variant: "destructive",
+        title: "Uh! No Something went wrong",
+        description: sendError,
+      });
+      dispatch({
+        type: types.RESET_MESSAGE,
+        payload: null,
+      });
+    }
+  }, [sendSuccessfull, sendError]);
 
   const sendEnrollMustate = useMutation({
     mutationFn: async (formData) => dispatch(SEND_ENROLL(formData)),

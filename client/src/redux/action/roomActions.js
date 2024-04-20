@@ -60,3 +60,23 @@ export const SEND_ENROLL = (formData) => async (dispatch) => {
     console.error(error);
   }
 };
+
+export const CREAT_ROOM = (formData) => async (dispatch) => {
+  try {
+    const response = await API.creatRoom(formData);
+    const { error, data } = response;
+    if (error) {
+      dispatch({
+        type: types.REQUEST_ERROR,
+        payload: error,
+      });
+    } else {
+      dispatch({
+        type: types.SUCCESS_MESSAGE,
+        payload: data,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

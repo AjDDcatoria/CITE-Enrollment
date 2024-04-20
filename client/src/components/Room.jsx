@@ -8,14 +8,12 @@ import backgroundTemp from "@/assets/CET.jpg";
 import tempProfile from "@/assets/defaultProfile1.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_ROOM } from "@/redux/action/roomActions";
-import { useNavigate } from "react-router-dom";
 
 function Room() {
   const { sideBarInfo } = useContext(SideBarContext);
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
   const [rooms, setRooms] = useState([]);
-  const navigate = useNavigate();
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };

@@ -10,7 +10,10 @@ export const getRoom = async () => {
       error: null,
     };
   } catch (error) {
-    return handleApiError(error);
+    return {
+      error: error.response.data,
+      data: null,
+    };
   }
 };
 
@@ -23,7 +26,10 @@ export const getAvaibleRooms = async () => {
       error: null,
     };
   } catch (error) {
-    return handleApiError(error);
+    return {
+      error: error.response.data,
+      data: null,
+    };
   }
 };
 
@@ -37,7 +43,31 @@ export const sendEnroll = async (formtData) => {
       error: null,
     };
   } catch (error) {
-    console.error(error);
-    return handleApiError(error);
+    return {
+      error: error.response.data,
+      data: null,
+    };
+  }
+};
+
+export const creatRoom = async (formData) => {
+  try {
+    const response = await api.post(`api/${formData.get("role")}/create-room`, {
+      roomName: formData.get("roomName"),
+      block: formData.get("block"),
+      year: formData.get("year"),
+      schedStart: formData.get("schedStart"),
+      schedEnd: formData.get("schedEnd"),
+    });
+    return {
+      data: response.data,
+      error: null,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      error: error.response.data,
+      data: null,
+    };
   }
 };
