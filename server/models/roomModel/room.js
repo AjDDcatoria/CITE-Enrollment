@@ -83,6 +83,20 @@ class Room {
     });
     return availableRoom;
   }
+
+  /**
+   * Get the enrollee base on instructor rooms
+   *
+   * @param {instructorID} - The instructorID
+   * @return {enrollee} - Contains fullname of student,roomName,block,year,roomId
+   */
+  async getEnrollee(instructorID) {
+    const enrollee = await sequelize.query(process.env.GET_ENROLLEE, {
+      replacements: [instructorID],
+      type: sequelize.QueryTypes.SELECT,
+    });
+    return enrollee;
+  }
 }
 
 module.exports = Room;

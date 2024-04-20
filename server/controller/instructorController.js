@@ -27,6 +27,21 @@ class InstructorController extends RequestController {
     await this.room.createRoom(newRoom, otherInfo, subjectInfo.dataValues);
     res.status(STATUS.CREATED).json({ message: "Room Created" });
   });
+
+  /**
+   * Retrives the enrollees base on instructors room , including roomId,roomName,
+   * student fullname,student id block,year,
+   *
+   * @route GET /api/"chair or instructor"/enrollee
+   *
+   * @param {String} req.session.userID - The instructur or userID that owns rooms
+   */
+
+  getEnrollee = asyncHandler(async (req, res) => {
+    const { userID } = req.session.currentUser;
+    const enrollee = await this.room.getEnrollee(userID);
+    res.status(STATUS.OK).json(enrollee);
+  });
 }
 
 module.exports = InstructorController;
