@@ -5,6 +5,7 @@ const initialState = {
   errorMessage: null,
   successMessage: null,
   availableRooms: null,
+  enrollee: null,
 };
 
 const roomReducer = (state = initialState, action) => {
@@ -42,6 +43,13 @@ const roomReducer = (state = initialState, action) => {
         ...state,
         successMessage: null,
         errorMessage: null,
+      };
+    }
+
+    case types.SET_ENROLLEE: {
+      return {
+        ...state,
+        enrollee: payload ? payload : null,
       };
     }
 

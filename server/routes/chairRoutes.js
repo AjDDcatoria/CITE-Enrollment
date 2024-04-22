@@ -15,7 +15,7 @@ router.post("/create-subject", chair.createSubject);
 
 // ! chair as Instructor Routes
 router.post("/create-room", chairAsInstructor.createRoom);
-router.delete("/reject-enroll", chairAsInstructor.rejectEnroll);
+router.post("/reject-enroll", chairAsInstructor.rejectEnroll);
 router.post("/accept-enroll", chair.acceptEnroll);
 router.get("/enrollee", chairAsInstructor.getEnrollee);
 

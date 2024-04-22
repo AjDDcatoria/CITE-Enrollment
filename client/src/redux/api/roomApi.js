@@ -71,3 +71,60 @@ export const creatRoom = async (formData) => {
     };
   }
 };
+
+export const getEnrollee = async (role) => {
+  try {
+    const response = await api.get(`/api/${role}/enrollee`);
+    return {
+      data: response.data,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      error: error,
+      data: null,
+    };
+  }
+};
+
+export const acceptEnroll = async (formData) => {
+  try {
+    const response = await api.post(
+      `/api/${formData.get("role")}/accept-enroll`,
+      {
+        roomId: formData.get("roomID"),
+        studentID: formData.get("id"),
+      }
+    );
+    return {
+      data: response.data,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      error: error.response.data,
+      data: null,
+    };
+  }
+};
+
+export const declineEnroll = async (formData) => {
+  try {
+    const response = await api.post(
+      `/api/${formData.get("role")}/reject-enroll`,
+      {
+        roomId: formData.get("roomID"),
+        studentID: formData.get("id"),
+      }
+    );
+    return {
+      data: response.data,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      error: error.response.data,
+      data: null,
+    };
+  }
+};

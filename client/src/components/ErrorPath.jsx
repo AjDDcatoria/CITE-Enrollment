@@ -6,7 +6,7 @@ function ErrorPath() {
 
   return (
     <section className={`content-section overflow-y-auto gap-5 ${sideBarInfo}`}>
-      Something Wrong
+      <div className="text-5xl text-slate-400 mt-36 w-72">ERROR PAGE</div>
     </section>
   );
 }

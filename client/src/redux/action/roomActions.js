@@ -80,3 +80,63 @@ export const CREAT_ROOM = (formData) => async (dispatch) => {
     console.error(error);
   }
 };
+
+export const GET_ENROLLEE = (role) => async (dispatch) => {
+  try {
+    const response = await API.getEnrollee(role);
+    const { error, data } = response;
+    if (error) {
+      dispatch({
+        type: types.REQUEST_ERROR,
+        payload: error,
+      });
+    } else {
+      dispatch({
+        type: types.SET_ENROLLEE,
+        payload: data,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const ACCEPT_ENROLL = (formData) => async (dispatch) => {
+  try {
+    const response = await API.acceptEnroll(formData);
+    const { error, data } = response;
+    if (error) {
+      dispatch({
+        type: types.REQUEST_ERROR,
+        payload: error,
+      });
+    } else {
+      dispatch({
+        type: types.SUCCESS_MESSAGE,
+        payload: data,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const DECLINE_ENROLL = (formData) => async (dispatch) => {
+  try {
+    const response = await API.declineEnroll(formData);
+    const { error, data } = response;
+    if (error) {
+      dispatch({
+        type: types.REQUEST_ERROR,
+        payload: error,
+      });
+    } else {
+      dispatch({
+        type: types.SUCCESS_MESSAGE,
+        payload: data,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

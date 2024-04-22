@@ -36,11 +36,11 @@ const NavigationUSER = (user) => {
           text: "Room",
           icon: <i className="pt-2 fi fi-sr-book-open-cover"></i>,
         },
-        {
-          to: `/student/todo-list/${id}`, // ! temp id = 1
-          text: "Todo-List",
-          icon: <i className="pt-2 fi fi-sr-journal"></i>,
-        },
+        // {
+        //   to: `/student/todo-list/${id}`,
+        //   text: "Todo-List",
+        //   icon: <i className="pt-2 fi fi-sr-journal"></i>,
+        // },
         {
           to: `/message/${id}`,
           text: "Message",
@@ -61,16 +61,16 @@ const NavigationUSER = (user) => {
 
     case ROLE.CHAIR:
       nav.push(
-        {
-          to: `/chair/${id}`,
-          text: "DashBoard",
-          icon: <i className="fi fi-sr-chart-simple"></i>,
-        },
-        {
-          to: `/chair/add-subjects/${id}`,
-          text: "Add Subjects",
-          icon: <i className="fi fi-sr-book-open-cover"></i>,
-        },
+        // {
+        //   to: `/chair/${id}`,
+        //   text: "DashBoard",
+        //   icon: <i className="fi fi-sr-chart-simple"></i>,
+        // },
+        // {
+        //   to: `/chair/add-subjects/${id}`,
+        //   text: "Add Subjects",
+        //   icon: <i className="fi fi-sr-book-open-cover"></i>,
+        // },
         {
           to: `/chair/request-accounts/${id}`,
           text: "Request Accounts",
@@ -83,6 +83,11 @@ const NavigationUSER = (user) => {
           to: `/instructor/${id}`,
           text: "Room",
           icon: <i className="pt-2 fi fi-sr-book-open-cover"></i>,
+        },
+        {
+          to: `/enrollee/${id}`,
+          text: "Enrollee",
+          icon: <i className="fi fi-sr-user-add"></i>,
         },
         {
           to: `/message/${id}`,

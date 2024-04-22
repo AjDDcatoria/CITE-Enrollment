@@ -14,6 +14,7 @@ import UserPanel from "./UserPanel";
 import { ProtectedLayout } from "./protected/ProtectedLayout";
 import ErrorPath from "@/components/ErrorPath";
 import ProtectedRoutes from "./protected/ProtectedRoutes";
+import Enrollees from "@/components/Enrollees";
 
 const router = createBrowserRouter([
   {
@@ -99,6 +100,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoutes>
             <Room />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/enrollee/:id",
+        element: (
+          <ProtectedRoutes>
+            <Enrollees />
           </ProtectedRoutes>
         ),
       },

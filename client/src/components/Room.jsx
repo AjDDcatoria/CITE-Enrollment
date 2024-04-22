@@ -94,9 +94,7 @@ function Room() {
               </Card>
             ))
           ) : (
-            <div className="text-5xl text-slate-400 mt-36 w-72">
-              No Subjects
-            </div>
+            <div className="text-5xl text-slate-400 mt-36 w-72">NO RESULT</div>
           )}
         </div>
       </section>
