@@ -5,9 +5,11 @@ import tempProfile from "../assets/defaultProfile1.jpg";
 import Avatar from "./ui/Avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_ROOM } from "@/redux/action/roomActions";
+import Chat from "./Chat";
 
 function Message() {
   const { sideBarInfo } = useContext(SideBarContext);
+  const [selectedChat, setSelectedChat] = useState(null);
   const [groupChat, setGroupChat] = useState([]);
   const roomData = useSelector((state) => state.room?.roomsData);
   const dispatch = useDispatch();
@@ -20,6 +22,10 @@ function Message() {
     }
   }, [roomData]);
 
+  const selectChat = (chat) => {
+    setSelectedChat(chat);
+  };
+
   return (
     <>
       <section
@@ -30,6 +36,7 @@ function Message() {
             <div className="h-16 w-full bg-slate-950 flex items-center justify-center">
               <span className="text-3xl text-slate-50">Message</span>
             </div>
+            {selectedChat && <Chat props={selectedChat} />}
           </div>
           <div className="right-bar w-full rounded overflow-hidden bg-white">
             <div className="h-16 w-full bg-slate-950 flex items-center justify-center">
@@ -43,6 +50,9 @@ function Message() {
                       <li
                         key={index}
                         className="flex justify-between h-14 rounded items-center p-2"
+                        onClick={() => {
+                          selectChat(chat);
+                        }}
                       >
                         <div className="flex gap-5 items-center">
                           <Avatar

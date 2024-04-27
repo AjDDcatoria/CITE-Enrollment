@@ -1,0 +1,22 @@
+div#chat {
+  height: 90%;
+  div.message-container {
+    height: 100%;
+    span {
+      font-weight: bolder;
+    }
+  }
+  div.text-container {
+    max-height: 120px;
+    min-height: 60px;
+    height: min-content;
+    i {
+      cursor: pointer;
+      color: rgb(2 6 23);
+    }
+    input {
+      height: 35px;
+      width: 100%;
+    }
+  }
+}
