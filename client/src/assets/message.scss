@@ -1,0 +1,27 @@
+div.message-container {
+  max-width: 1230px;
+  div.message {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    max-width: 900px;
+  }
+  div.right-bar {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    max-width: 320px;
+
+    ul {
+      li {
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        transition: all 0.2s ease-in-out;
+        div.icon {
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+          background-color: #fff;
+          padding: 5px;
+        }
+        cursor: pointer;
+      }
+      li:hover {
+        background-color: rgb(225, 222, 222);
+      }
+    }
+  }
+}

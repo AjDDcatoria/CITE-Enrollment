@@ -72,7 +72,7 @@ const NavigationUSER = (user) => {
         //   icon: <i className="fi fi-sr-book-open-cover"></i>,
         // },
         {
-          to: `/chair/request-accounts/${id}`,
+          to: `/chair/${id}`,
           text: "Request Accounts",
           icon: <i className="fi fi-sr-user-check"></i>,
         }

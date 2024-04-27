@@ -71,30 +71,30 @@ const router = createBrowserRouter([
           </ProtectedRoutes>
         ),
       },
+      // {
+      //   path: "/chair/:id",
+      //   element: (
+      //     <ProtectedRoutes>
+      //       <DashBoard />
+      //     </ProtectedRoutes>
+      //   ),
+      // },
       {
         path: "/chair/:id",
-        element: (
-          <ProtectedRoutes>
-            <DashBoard />
-          </ProtectedRoutes>
-        ),
-      },
-      {
-        path: "/chair/request-accounts/:id",
         element: (
           <ProtectedRoutes>
             <RequestAcc />
           </ProtectedRoutes>
         ),
       },
-      {
-        path: "/chair/add-subjects/:id",
-        element: (
-          <ProtectedRoutes>
-            <AddSubjects />
-          </ProtectedRoutes>
-        ),
-      },
+      // {
+      //   path: "/chair/add-subjects/:id",
+      //   element: (
+      //     <ProtectedRoutes>
+      //       <AddSubjects />
+      //     </ProtectedRoutes>
+      //   ),
+      // },
       {
         path: "/instructor/:id",
         element: (

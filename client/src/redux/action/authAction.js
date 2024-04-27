@@ -1,10 +1,15 @@
 import * as API from "../api/authApi";
 import * as types from "../constants/authConstants";
+import { SET_ROOM } from "./roomActions";
 
 export const initializeAuth = () => async (dispatch) => {
   const accessToken = JSON.parse(localStorage.getItem("profile"))?.accessToken;
+  const roomInfo = JSON.parse(localStorage.getItem("roomInfo"))?.roomInfo;
   if (accessToken) {
     dispatch(setUserData(JSON.parse(localStorage.getItem("profile")).user));
+    if (roomInfo) {
+      dispatch(SET_ROOM(JSON.parse(localStorage.getItem("roomInfo")).roomInfo));
+    }
   }
 };
 
@@ -48,13 +53,16 @@ export const LogoutAction = (navigate) => async (dispatch) => {
   try {
     const response = await API.logout();
     const { data } = response;
-    localStorage.removeItem("profile");
+
     dispatch({
       type: types.LOGOUT,
       payload: data,
     });
     navigate("/");
     window.location.reload();
+
+    localStorage.removeItem("profile");
+    localStorage.removeItem("roomInfo");
   } catch (error) {
     dispatch({
       type: types.ERROR_MESSAGE,

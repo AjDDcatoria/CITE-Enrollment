@@ -25,7 +25,7 @@ function AuthPage() {
 
   return (
     <>
-      <div className="container-login h-screen flex items-center justify-center">
+      <div className="container-login h-screen flex items-center justify-center bg-slate-100">
         <img src={HERO} className="hero" />
         <Login setIsModalOpen={openModal} />
         {isModalOpen && <RegisterModal closeModal={closeModal} />}
@@ -86,7 +86,7 @@ function Login({ setIsModalOpen }) {
         <span className="bg-transparent text-4xl font-bold pb-10">Login</span>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-5 relative bg-transparent"
+          className="flex flex-col gap-5 relative bg-white"
         >
           <i className="fi fi-sr-envelope absolute bg-transparent top-3 left-4 text-xl text-slate-900"></i>
           <input

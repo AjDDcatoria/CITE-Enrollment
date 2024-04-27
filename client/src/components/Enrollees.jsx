@@ -93,7 +93,7 @@ function Enrollees() {
               No Results
             </div>
           ) : (
-            <Table className={"rounded-md mt-10 overflow-hidden"}>
+            <Table className={"rounded-md mt-10 overflow-hidden bg-white"}>
               <CreateTableHeaders values={tableHeaders} />
               <TableBody>
                 {enrollees &&

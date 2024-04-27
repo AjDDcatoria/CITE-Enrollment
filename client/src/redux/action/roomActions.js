@@ -1,6 +1,13 @@
 import * as API from "../api/roomApi";
 import * as types from "../constants/roomConstans";
 
+export const SET_ROOM = (roomData) => async (dispatch) => {
+  dispatch({
+    type: types.ADD_ROOMS,
+    payload: roomData,
+  });
+};
+
 export const GET_ROOM = () => async (dispatch) => {
   try {
     const response = await API.getRoom();
@@ -11,6 +18,10 @@ export const GET_ROOM = () => async (dispatch) => {
         payload: error,
       });
     } else {
+      const roomInfo = {
+        roomInfo: data,
+      };
+      localStorage.setItem("roomInfo", JSON.stringify(roomInfo));
       dispatch({
         type: types.ADD_ROOMS,
         payload: data,
