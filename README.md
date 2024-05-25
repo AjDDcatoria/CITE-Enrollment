@@ -1,4 +1,4 @@
-# Classroom Management System
+# CITE enrollment system
 
 ## Overview
 The Classroom Management System is a web application built using React, Node.js, Express, Sequelize, and MySQL. It provides a platform for instructors to create rooms for their classes, automatically generating Google Classroom (GC) instances. Students can then enroll in these rooms, and upon acceptance by the instructor, they are added to the corresponding Google Classroom.
