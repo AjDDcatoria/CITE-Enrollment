@@ -46,6 +46,7 @@ class InstructorController extends RequestController {
   getEnrollee = asyncHandler(async (req, res) => {
     const { userID } = req.session.currentUser;
     const enrollee = await this.room.getEnrollee(userID);
+    console.log(enrollee, "ENROLLEEEEEEEEEEEEEEEE");
     res.status(STATUS.OK).json(enrollee);
   });
 }
