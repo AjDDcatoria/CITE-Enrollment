@@ -7,7 +7,7 @@ The Classroom Management System is a web application built using React, Node.js,
 
 - **Room Creation:** Instructors can create rooms for their classes through the web interface.
   
-- **Automatic GC Creation:** Upon creating a room, the system automatically generates a corresponding Google Classroom instance.
+- **Automatic GC Creation:** Upon creating a room, the system automatically generates a corresponding Online Classroom instance.
 
 - **Student Enrollment:** Students can enroll in available rooms by providing necessary details.
 
