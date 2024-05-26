@@ -1,12 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "./ui/Avatar";
 import tempProfile from "@/assets/defaultProfile1.jpg";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaVideo } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import "../assets/chat.scss";
+import { useMutation } from "@tanstack/react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_CLASSMEMBERS } from "@/redux/action/roomActions";
+import Modal, { ModalHeader } from "./ui/Modal";
+import defaultPicture from "../assets/defaultProfile1.jpg";
 
 function Chat({ props }) {
+  const dispatch = useDispatch();
+  const formData = new FormData();
+  const [isModalOpen, setIsOpenModal] = useState(false);
+
+  const getClassMembers = useMutation({
+    mutationFn: async (formData) => dispatch(GET_CLASSMEMBERS(formData)),
+    onMutate: () => {
+      console.log("Loading");
+    },
+  });
+
+  const members = useSelector((state) => state.room?.classMembers);
+
+  const getMembers = async (roomId) => {
+    formData.append("roomId", roomId);
+    formData.append("role", "chair");
+    await getClassMembers.mutateAsync(formData);
+    setIsOpenModal(true);
+    formData.delete("roomId");
+    formData.delete("role");
+  };
+
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
+
   return (
     <>
       <div id="chat" className="pr-3 pl-3 flex flex-col">
@@ -23,7 +54,11 @@ function Chat({ props }) {
             <div className="flex gap-6">
               <BsFillTelephoneFill className="" />
               <FaVideo />
-              <FiMenu />
+              <FiMenu
+                onClick={() => {
+                  getMembers(props.roomId);
+                }}
+              />
             </div>
           </div>
         </div>
@@ -45,6 +80,42 @@ function Chat({ props }) {
           <i className="fi fi-sr-paper-plane-top text-slate-950"></i>
         </div>
       </div>
+      {isModalOpen && <MemberModal closeModal={closeModal} members={members} />}
+    </>
+  );
+}
+
+function MemberModal({ closeModal, members }) {
+  return (
+    <>
+      <Modal closeModal={closeModal}>
+        <ModalHeader className={"text-2xl"}>Members</ModalHeader>
+        <ul style={{ width: "400px" }}>
+          {members &&
+            members.map((person, index) => {
+              return (
+                <li
+                  key={index}
+                  className="border pl-2 h-14 text-lg flex gap-3 items-center"
+                >
+                  <Avatar
+                    img={person.profile ?? defaultPicture}
+                    variant={"small"}
+                    className={"rounded-full"}
+                  />
+                  <span className="flex gap-2">
+                    <span>{person.firstname + " " + person.lastname}</span>
+                    <span>
+                      {person.role == "chair" || person.role == "instructor"
+                        ? " (instructor)"
+                        : ""}
+                    </span>
+                  </span>
+                </li>
+              );
+            })}
+        </ul>
+      </Modal>
     </>
   );
 }

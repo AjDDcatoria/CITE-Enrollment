@@ -4,7 +4,7 @@ import SearchBar from "./ui/SearchBar";
 import Card from "./ui/Cards";
 import Button from "./ui/Button";
 import Avatar from "./ui/Avatar";
-import backgroundTemp from "@/assets/CET.jpg";
+import backgroundTemp from "@/assets/coverComscie.jpg";
 import tempProfile from "@/assets/defaultProfile1.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_ROOM } from "@/redux/action/roomActions";

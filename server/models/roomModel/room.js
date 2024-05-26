@@ -1,5 +1,4 @@
 const sequelize = require("../../config/db.js");
-const EnrollModel = require("../requestModel/enrollRequestModel.js");
 const UserModel = require("../userModel/userModel");
 const ClassMemberModel = require("./classMemberModel.js");
 const RoomModel = require("./roomModel");
@@ -85,6 +84,22 @@ class Room {
       userId: userData.id,
       roomId: roomInfo.id,
     });
+  }
+
+  // todo get members of the classroom by classroom id
+  async getMembers(roomId) {
+    const members = await UserModel.findAll({
+      attributes: ["firstname", "lastname", "role", "profile"],
+      include: {
+        model: ClassMemberModel,
+        where: {
+          roomId: roomId,
+        },
+        attributes: [],
+      },
+    });
+
+    return members;
   }
 
   /**

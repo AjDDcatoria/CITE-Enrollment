@@ -62,7 +62,7 @@ function Message() {
                           />
                           <div className="text-sm">{chat.roomName}</div>
                         </div>
-                        <div className=" flex gap-1 items-center  rounded-full icon">
+                        <div className=" flex gap-1 items-center rounded-full icon">
                           <span> &#x2022;</span>
                           <span> &#x2022;</span>
                           <span> &#x2022;</span>
