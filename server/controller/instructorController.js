@@ -35,6 +35,14 @@ class InstructorController extends RequestController {
     res.status(STATUS.CREATED).json({ message: "Room Created" });
   });
 
+  getClassMember = asyncHandler(async (req, res) => {
+    const { roomId } = req.body;
+
+    const members = await this.room.getMembers(roomId);
+
+    res.status(STATUS.OK).json(members);
+  });
+
   /**
    * Retrives the enrollees base on instructors room , including roomId,roomName,
    * student fullname,student id block,year,
@@ -46,7 +54,6 @@ class InstructorController extends RequestController {
   getEnrollee = asyncHandler(async (req, res) => {
     const { userID } = req.session.currentUser;
     const enrollee = await this.room.getEnrollee(userID);
-    console.log(enrollee, "ENROLLEEEEEEEEEEEEEEEE");
     res.status(STATUS.OK).json(enrollee);
   });
 }

@@ -7,5 +7,6 @@ const instructor = new InstructorController();
 router.post("/create-room", instructor.createRoom);
 router.post("/reject-enroll", instructor.rejectEnroll);
 router.get("/enrollee", instructor.getEnrollee);
+router.post("/getclassmember", instructor.getClassMember);
 
 module.exports = router;

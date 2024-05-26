@@ -5,6 +5,7 @@ const initialState = {
   errorMessage: null,
   successMessage: null,
   availableRooms: null,
+  classMembers: null,
   enrollee: null,
 };
 
@@ -21,6 +22,13 @@ const roomReducer = (state = initialState, action) => {
       return {
         ...state,
         roomsData: payload ? payload : null,
+      };
+    }
+
+    case types.SET_MEMBERS: {
+      return {
+        ...state,
+        classMembers: payload ? payload : null,
       };
     }
 

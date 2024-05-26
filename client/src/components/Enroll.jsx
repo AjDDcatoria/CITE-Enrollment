@@ -4,7 +4,7 @@ import SearchBar from "./ui/SearchBar";
 import tempProfile from "@/assets/defaultProfile1.jpg";
 import Card from "./ui/Cards";
 import Button from "./ui/Button";
-import backgroundTemp from "@/assets/CET.jpg";
+import backgroundTemp from "@/assets/coverComscie.jpg";
 import Avatar from "./ui/Avatar";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "./ui/toaster";

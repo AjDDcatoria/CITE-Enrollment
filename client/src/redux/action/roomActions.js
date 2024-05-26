@@ -151,3 +151,23 @@ export const DECLINE_ENROLL = (formData) => async (dispatch) => {
     console.error(error);
   }
 };
+
+export const GET_CLASSMEMBERS = (formData) => async (dispatch) => {
+  try {
+    const response = await API.getClassMembers(formData);
+    const { error, data } = response;
+    if (error) {
+      dispatch({
+        type: types.REQUEST_ERROR,
+        payload: error,
+      });
+    } else {
+      dispatch({
+        type: types.SET_MEMBERS,
+        payload: data,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

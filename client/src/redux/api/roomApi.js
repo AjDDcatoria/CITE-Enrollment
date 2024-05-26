@@ -87,6 +87,26 @@ export const getEnrollee = async (role) => {
   }
 };
 
+export const getClassMembers = async (formData) => {
+  try {
+    const response = await api.post(
+      `/api/${formData.get("role")}/getclassmember`,
+      {
+        roomId: formData.get("roomId"),
+      }
+    );
+    return {
+      data: response.data,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      error: error,
+      data: null,
+    };
+  }
+};
+
 export const acceptEnroll = async (formData) => {
   try {
     const response = await api.post(

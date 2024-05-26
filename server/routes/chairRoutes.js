@@ -18,5 +18,6 @@ router.post("/create-room", chairAsInstructor.createRoom);
 router.post("/reject-enroll", chairAsInstructor.rejectEnroll);
 router.post("/accept-enroll", chair.acceptEnroll);
 router.get("/enrollee", chairAsInstructor.getEnrollee);
+router.post("/getclassmember", chairAsInstructor.getClassMember);
 
 module.exports = router;

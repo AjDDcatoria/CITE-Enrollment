@@ -64,7 +64,7 @@ function SideBar({ children, currentUser, variant, className, sideBarOpen }) {
             <Avatar
               img={currentUser.profile ? currentUser.profile : tempProfile}
               variant={"medium"}
-              className={"rounded-lg"}
+              className={"rounded"}
             />
             <div className="bg-transparent mt-3 leading-4">
               <span
