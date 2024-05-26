@@ -36,19 +36,16 @@ The CITE Enrollment System is a web application built using React, Node.js, Expr
 3. **Database Configuration:**
    - Set up a MySQL database and update the database configuration in `config/config.json` file.
 
-4. **Google Classroom API Configuration:**
-   - Follow the Google Classroom API documentation to obtain credentials and set up OAuth for integration.
-
-5. **Run the Application node server:**
+4. **Run the Application node server:**
    ```
    npm run test
    ```
-6. **Run the Application react server:**
+5. **Run the Application react server:**
    ```
    npm run dev
    ```
 
-7. **Access the Application:**
+6. **Access the Application:**
    - Open your web browser and navigate to `http://localhost:5173` to access the application.
 
 ## Usage
