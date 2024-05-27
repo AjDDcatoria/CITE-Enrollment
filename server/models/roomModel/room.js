@@ -120,7 +120,7 @@ class Room {
     // Arrays of roomNames
     rooms = rooms.map((room) => room.roomName);
 
-    const availableRoom = UserModel.findAll({
+    const availableRoom = await UserModel.findAll({
       attributes: ["profile", "firstname", "lastname"],
       include: {
         model: RoomModel,

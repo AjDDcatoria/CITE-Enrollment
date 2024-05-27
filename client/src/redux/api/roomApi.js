@@ -95,6 +95,7 @@ export const getClassMembers = async (formData) => {
         roomId: formData.get("roomId"),
       }
     );
+    console.log(response);
     return {
       data: response.data,
       error: null,

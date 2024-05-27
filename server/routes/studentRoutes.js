@@ -6,5 +6,6 @@ const student = new StudentController();
 
 router.post("/send-enroll", student.sendEnroll);
 router.get("/get-available-rooms", student.getAvailableRooms);
+router.post("/getclassmember", student.getClassmember);
 
 module.exports = router;

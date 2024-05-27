@@ -24,10 +24,11 @@ function Chat({ props }) {
   });
 
   const members = useSelector((state) => state.room?.classMembers);
+  const user = useSelector((state) => state.auth?.userData);
 
   const getMembers = async (roomId) => {
     formData.append("roomId", roomId);
-    formData.append("role", "chair");
+    formData.append("role", user.role);
     await getClassMembers.mutateAsync(formData);
     setIsOpenModal(true);
     formData.delete("roomId");

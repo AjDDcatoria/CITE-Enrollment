@@ -30,6 +30,13 @@ class StudentController {
     const rooms = await this.room.getAvailableRooms(userID);
     res.status(STATUS.OK).json(rooms);
   });
+
+  getClassmember = asyncHandler(async (req, res) => {
+    const { roomId } = req.body;
+    const members = await this.room.getMembers(roomId);
+
+    res.status(STATUS.OK).json(members);
+  });
 }
 
 module.exports = StudentController;
